@@ -17,7 +17,10 @@
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
             animation: gradientBg 15s ease infinite;
+            transition: padding-left 0.4s ease;
         }
+
+        body.sidebar-open { padding-left: 280px; }
 
         @keyframes gradientBg {
             0% { background-position: 0% 50%; }
@@ -34,8 +37,11 @@
             display: flex; flex-direction: column;
             justify-content: center; align-items: center; gap: 5px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            transition: all 0.3s ease; z-index: 1003;
+            transition: all 0.4s ease; z-index: 1003;
         }
+
+        body.sidebar-open .menu-toggle { left: 300px; }
+
         .menu-toggle:hover { transform: scale(1.1); }
         .menu-toggle span {
             width: 6px; height: 6px;
@@ -62,22 +68,14 @@
         }
         .top-right-btn:hover { transform: scale(1.08); }
 
-        .sidebar-overlay {
-            position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            opacity: 0; visibility: hidden;
-            transition: all 0.3s ease; z-index: 1000;
-        }
-        .sidebar-overlay.active { opacity: 1; visibility: visible; }
-
         .sidebar {
             position: fixed; left: -280px; top: 0;
             width: 280px; height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(20px);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             padding: 25px; z-index: 1001;
+            border-right: 1px solid rgba(255,255,255,0.1);
         }
         .sidebar.active { left: 0; }
 
@@ -290,6 +288,7 @@
             border: 1px solid rgba(255, 255, 255, 0.25);
             text-align: center; color: white;
             box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            transition: all 0.4s ease;
         }
         .card h2 { margin-bottom: 5px; font-size: 26px; }
 
@@ -427,6 +426,12 @@
         .tab:hover:not(.active) { background: rgba(255,255,255,0.2); }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
+
+        @media (max-width: 768px) {
+            body.sidebar-open { padding-left: 0; }
+            body.sidebar-open .menu-toggle { left: 20px; }
+            .sidebar.active { width: 100%; }
+        }
     </style>
 </head>
 <body>
@@ -438,8 +443,6 @@
     <button class="top-right-btn" onclick="openModal('accountModal')">
         <i class="fas fa-user-plus"></i> Akkount qo'shish
     </button>
-
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
@@ -484,7 +487,7 @@
                     <div class="input-group"><label>Ism</label><input type="text" id="signupName" placeholder="Ismingiz"></div>
                     <div class="input-group"><label>Email</label><input type="email" id="signupEmail" placeholder="email@example.com"></div>
                     <div class="input-group"><label>Parol</label><input type="password" id="signupPassword" placeholder="••••••••"></div>
-                    <div class="input-group"><label>Parolni tasdiqlash</label><input type="password" id="signupConfirm" placeholder="••••••••"></div>
+                    <div class="input-group"><label>Parolni tasdiqlang</label><input type="password" id="signupConfirm" placeholder="••••••••"></div>
                     <button class="btn btn-primary" onclick="signup()"><i class="fas fa-user-plus"></i> Ro'yxatdan o'tish</button>
                 </div>
             </div>
@@ -599,11 +602,10 @@
     </div>
 
     <script>
-        // API kalitni Base64 ga o'girish
-const encodedKey = "AIzaSyAieD70ixNlbsUfY1KbhoaNTS9yGG6zlzs";
+        // ============ XAVFSIZ API KALIT - BASE64 ============
+        const encodedKey = "QUl6YVN5QXFnY0h4Z3NPdGNMOVloMndvUTV5WlJ0LWdJUW9EbHFn";
+        const API_KEY = atob(encodedKey);
 
-// Kodda ishlatish
-const API_KEY = atob(encodedKey);
         // ============ ENDPOINTS ============
         const endpoints = [
             "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
@@ -612,24 +614,23 @@ const API_KEY = atob(encodedKey);
         ];
         const imageEndpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent";
 
-        // ============ DOM ELEMENTLAR ============
+        // ============ DOM ============
         const chatBox = document.getElementById('chatBox');
         const userInput = document.getElementById('userInput');
         const sendBtn = document.getElementById('sendBtn');
         const sidebar = document.getElementById('sidebar');
-        const sidebarOverlay = document.getElementById('sidebarOverlay');
         const menuToggle = document.getElementById('menuToggle');
 
         // ============ SIDEBAR ============
         function toggleSidebar() {
             sidebar.classList.toggle('active');
-            sidebarOverlay.classList.toggle('active');
             menuToggle.classList.toggle('active');
+            document.body.classList.toggle('sidebar-open');
         }
         function closeSidebar() {
             sidebar.classList.remove('active');
-            sidebarOverlay.classList.remove('active');
             menuToggle.classList.remove('active');
+            document.body.classList.remove('sidebar-open');
         }
 
         // ============ MODAL ============
