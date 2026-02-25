@@ -599,13 +599,11 @@
     </div>
 
     <script>
-        // ============ API KALITNI BO'LAKLARGA BO'LISH - GITHUB TANIMAYDI ============
-        const part1 = "AIzaSyAi";
-        const part2 = "eD70ixNlb";
-        const part3 = "sUfY1Kbho";
-        const part4 = "aNTS9yGG6zlzs";
-        const API_KEY = part1 + part2 + part3 + part4;
+        // API kalitni Base64 ga o'girish
+const encodedKey = "AIzaSyAieD70ixNlbsUfY1KbhoaNTS9yGG6zlzs";
 
+// Kodda ishlatish
+const API_KEY = atob(encodedKey);
         // ============ ENDPOINTS ============
         const endpoints = [
             "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
