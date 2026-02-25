@@ -3,840 +3,1219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NurikAI - Professional Chat</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>NurikAI - Kelajak Texnologiyasi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-glow: rgba(139, 92, 246, 0.5);
+            --secondary: #06b6d4;
+            --accent: #f43f5e;
+            --neon-green: #22c55e;
+            --dark-1: #030014;
+            --dark-2: #0a0a1a;
+            --dark-3: #13132a;
+            --glass: rgba(255,255,255,0.03);
+            --glass-border: rgba(255,255,255,0.08);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Outfit', sans-serif;
+            background: var(--dark-1);
+            color: white;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradientBg 15s ease infinite;
-            transition: padding-left 0.4s ease;
+            overflow-x: hidden;
         }
 
-        body.sidebar-open { padding-left: 280px; }
-
-        @keyframes gradientBg {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .menu-toggle {
-            position: fixed; top: 20px; left: 20px;
-            width: 45px; height: 45px;
-            background: rgba(255, 255, 255, 0.95);
-            border: none; border-radius: 12px;
-            cursor: pointer;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center; gap: 5px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            transition: all 0.4s ease; z-index: 1003;
-        }
-
-        body.sidebar-open .menu-toggle { left: 300px; }
-
-        .menu-toggle:hover { transform: scale(1.1); }
-        .menu-toggle span {
-            width: 6px; height: 6px;
-            background: #e73c7e; border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-        .menu-toggle.active span:nth-child(1) {
-            transform: translateY(11px) rotate(45deg);
-            width: 20px; height: 3px; border-radius: 2px;
-        }
-        .menu-toggle.active span:nth-child(2) { opacity: 0; }
-        .menu-toggle.active span:nth-child(3) {
-            transform: translateY(-11px) rotate(-45deg);
-            width: 20px; height: 3px; border-radius: 2px;
-        }
-
-        .top-right-btn {
-            position: fixed; top: 20px; right: 20px;
-            padding: 12px 25px; border: none; border-radius: 30px;
-            cursor: pointer; background: rgba(255, 255, 255, 0.95);
-            color: #e73c7e; font-weight: bold; font-size: 14px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            transition: all 0.3s ease; z-index: 1002;
-        }
-        .top-right-btn:hover { transform: scale(1.08); }
-
-        .sidebar {
-            position: fixed; left: -280px; top: 0;
-            width: 280px; height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(20px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 25px; z-index: 1001;
-            border-right: 1px solid rgba(255,255,255,0.1);
-        }
-        .sidebar.active { left: 0; }
-
-        .sidebar-header {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 30px; padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.15);
-        }
-        .sidebar h2 { color: white; font-size: 22px; }
-        .sidebar h2 span { color: #23d5ab; }
-
-        .close-sidebar {
-            width: 35px; height: 35px;
-            background: rgba(255,255,255,0.1);
-            border: none; border-radius: 10px;
-            color: white; cursor: pointer; transition: all 0.3s;
-        }
-        .close-sidebar:hover { background: rgba(231, 60, 60, 0.3); color: #ff6b6b; }
-
-        .menu-item {
-            color: rgba(255,255,255,0.8); padding: 14px 15px;
-            display: flex; align-items: center; cursor: pointer;
-            transition: all 0.3s; border-radius: 12px;
-            margin-bottom: 5px; font-size: 15px;
-        }
-        .menu-item:hover {
-            color: #fff; background: rgba(35, 213, 171, 0.2);
-            transform: translateX(5px);
-        }
-        .menu-item i { margin-right: 15px; width: 20px; text-align: center; }
-        .menu-item.active { background: rgba(35, 213, 171, 0.25); color: #23d5ab; }
-        .menu-item.danger:hover { background: rgba(231, 60, 60, 0.3); color: #ff6b6b; }
-
-        .sidebar-footer {
-            position: absolute; bottom: 25px; left: 25px; right: 25px;
-            text-align: center; color: rgba(255,255,255,0.4);
-            font-size: 12px; padding-top: 15px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .modal-overlay {
-            position: fixed; top: 0; left: 0;
+        /* Background */
+        .cosmic-bg {
+            position: fixed;
+            top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
-            display: flex; justify-content: center; align-items: center;
-            opacity: 0; visibility: hidden;
-            transition: all 0.3s ease; z-index: 2000;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(139,92,246,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(6,182,212,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(244,63,94,0.08) 0%, transparent 60%);
         }
-        .modal-overlay.active { opacity: 1; visibility: visible; }
 
-        .modal {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border-radius: 20px; padding: 30px;
-            width: 90%; max-width: 450px; max-height: 85vh;
-            overflow-y: auto;
-            transform: scale(0.8) translateY(20px);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        .stars {
+            position: fixed;
+            width: 100%; height: 100%;
+            z-index: -1;
         }
-        .modal-overlay.active .modal { transform: scale(1) translateY(0); }
 
-        .modal-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 25px; padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
         }
-        .modal-header h3 {
-            color: white; font-size: 20px;
-            display: flex; align-items: center; gap: 10px;
-        }
-        .modal-header h3 i { color: #23d5ab; }
 
-        .modal-close {
-            width: 35px; height: 35px;
-            background: rgba(255,255,255,0.1);
-            border: none; border-radius: 10px;
-            color: white; cursor: pointer;
-            transition: all 0.3s; font-size: 16px;
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
         }
-        .modal-close:hover { background: rgba(231, 60, 60, 0.4); color: #ff6b6b; }
 
-        .modal-content { color: rgba(255,255,255,0.8); }
+        /* Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+        }
+        .orb-1 { width: 400px; height: 400px; background: var(--primary); top: 10%; left: 5%; opacity: 0.1; }
+        .orb-2 { width: 300px; height: 300px; background: var(--secondary); bottom: 10%; right: 5%; opacity: 0.1; animation-delay: -7s; }
+        .orb-3 { width: 250px; height: 250px; background: var(--accent); top: 50%; left: 50%; opacity: 0.08; animation-delay: -14s; }
 
-        .input-group { margin-bottom: 15px; }
-        .input-group label {
-            display: block; color: rgba(255,255,255,0.7);
-            margin-bottom: 8px; font-size: 14px;
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, -30px); }
         }
-        .input-group input, .input-group textarea, .input-group select {
-            width: 100%; padding: 12px 15px;
-            border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            background: rgba(255,255,255,0.05);
-            color: white; font-size: 14px;
-            outline: none; transition: all 0.3s;
-        }
-        .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
-            border-color: #23d5ab;
-            background: rgba(35, 213, 171, 0.1);
-        }
-        .input-group textarea { resize: vertical; min-height: 100px; }
 
-        .btn {
-            padding: 12px 25px; border: none; border-radius: 12px;
-            cursor: pointer; font-size: 14px; font-weight: bold;
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 75px;
+            background: rgba(3,0,20,0.8);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 48px; height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .logo-text {
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 18px 8px 8px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            cursor: pointer;
             transition: all 0.3s;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, #e73c7e, #ee7752);
-            color: white; width: 100%;
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(231, 60, 126, 0.4);
-        }
-        .btn-secondary {
-            background: rgba(255,255,255,0.1);
-            color: white; width: 100%; margin-top: 10px;
-        }
-        .btn-secondary:hover { background: rgba(255,255,255,0.2); }
-        .btn-google {
-            background: white; color: #333;
-            width: 100%; margin-bottom: 15px;
-            border: 2px solid #eee;
-        }
-        .btn-google:hover { background: #f5f5f5; transform: translateY(-2px); }
-        .btn-google img { width: 20px; height: 20px; }
-
-        .divider {
-            display: flex; align-items: center;
-            margin: 20px 0; color: rgba(255,255,255,0.4); font-size: 13px;
-        }
-        .divider::before, .divider::after {
-            content: ''; flex: 1; height: 1px;
-            background: rgba(255,255,255,0.2);
-        }
-        .divider span { padding: 0 15px; }
-
-        .profile-avatar {
-            width: 100px; height: 100px; border-radius: 50%;
-            background: linear-gradient(135deg, #23d5ab, #23a6d5);
-            display: flex; justify-content: center; align-items: center;
-            margin: 0 auto 20px; font-size: 40px;
-            color: white; cursor: pointer; transition: all 0.3s;
-        }
-        .profile-avatar:hover { transform: scale(1.1); }
-
-        .history-item {
-            background: rgba(255,255,255,0.05); padding: 15px;
-            border-radius: 12px; margin-bottom: 10px;
-            cursor: pointer; transition: all 0.3s;
-        }
-        .history-item:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateX(5px);
-        }
-        .history-item .date {
-            font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 5px;
-        }
-        .history-item .text { font-size: 14px; color: rgba(255,255,255,0.8); }
-
-        .history-empty {
-            text-align: center; padding: 40px 20px;
-            color: rgba(255,255,255,0.5);
-        }
-        .history-empty i { font-size: 50px; margin-bottom: 15px; opacity: 0.5; }
-
-        .setting-item {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .setting-item:last-child { border-bottom: none; }
-        .setting-info h4 { color: white; font-size: 15px; margin-bottom: 3px; }
-        .setting-info p { color: rgba(255,255,255,0.5); font-size: 12px; }
-
-        .toggle-switch {
-            width: 50px; height: 26px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 13px; position: relative;
-            cursor: pointer; transition: all 0.3s;
-        }
-        .toggle-switch.active { background: #23d5ab; }
-        .toggle-switch::after {
-            content: ''; position: absolute;
-            width: 22px; height: 22px;
-            background: white; border-radius: 50%;
-            top: 2px; left: 2px; transition: all 0.3s;
-        }
-        .toggle-switch.active::after { left: 26px; }
-
-        .image-preview {
-            width: 100%; height: 200px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            display: flex; justify-content: center; align-items: center;
-            margin-bottom: 20px;
-            border: 2px dashed rgba(255,255,255,0.2);
-            overflow: hidden;
-        }
-        .image-preview img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .image-preview i { font-size: 50px; color: rgba(255,255,255,0.3); }
-
-        .card {
-            background: rgba(255, 255, 255, 0.15);
-            width: 95%; max-width: 520px; padding: 25px;
-            border-radius: 25px; backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            text-align: center; color: white;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            transition: all 0.4s ease;
-        }
-        .card h2 { margin-bottom: 5px; font-size: 26px; }
-
-        .status-bar {
-            display: flex; align-items: center; justify-content: center;
-            gap: 8px; margin-bottom: 15px;
-            font-size: 13px; color: rgba(255,255,255,0.7);
-        }
-        .status-dot {
-            width: 8px; height: 8px;
-            background: #23d5ab; border-radius: 50%;
-            animation: pulse 2s ease infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        .chat-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 10px;
-        }
-        .chat-header span { font-size: 14px; color: rgba(255,255,255,0.7); }
-        .clear-btn {
-            background: rgba(231, 60, 60, 0.3);
-            border: 1px solid rgba(231, 60, 60, 0.4);
-            color: #ff6b6b; padding: 8px 15px; border-radius: 20px;
-            cursor: pointer; font-size: 12px; transition: all 0.3s;
-            display: flex; align-items: center; gap: 6px;
-        }
-        .clear-btn:hover { background: rgba(231, 60, 60, 0.5); }
-
-        .chat-box {
-            background: rgba(0, 0, 0, 0.25);
-            border-radius: 18px; height: 300px;
-            margin-bottom: 15px; padding: 15px;
-            overflow-y: auto; text-align: left; font-size: 14px;
-            display: flex; flex-direction: column; gap: 10px;
-        }
-        .chat-box::-webkit-scrollbar { width: 6px; }
-        .chat-box::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.2); border-radius: 3px;
-        }
-
-        .message {
-            padding: 12px 16px; border-radius: 18px;
-            max-width: 85%; word-wrap: break-word;
-            line-height: 1.5; animation: msgIn 0.3s ease;
-        }
-        @keyframes msgIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .bot-msg {
-            background: rgba(35, 213, 171, 0.25);
-            align-self: flex-start; border-bottom-left-radius: 5px;
-        }
-        .user-msg {
-            background: rgba(231, 60, 126, 0.35);
-            align-self: flex-end; border-bottom-right-radius: 5px;
-        }
-        .msg-label {
-            font-size: 10px; margin-bottom: 4px;
-            font-weight: bold; opacity: 0.8;
-        }
-        .system-msg {
-            background: rgba(255, 255, 255, 0.1);
-            align-self: center; text-align: center;
-            font-size: 12px; color: rgba(255,255,255,0.7); padding: 8px 20px;
-        }
-        .generated-image {
-            max-width: 100%; border-radius: 12px; margin-top: 8px;
-        }
-
-        .typing-indicator { display: flex; gap: 5px; padding: 5px 0; }
-        .typing-indicator span {
-            width: 8px; height: 8px;
-            background: #23d5ab; border-radius: 50%;
-            animation: bounce 1.4s ease infinite;
-        }
-        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        .input-area {
-            display: flex; background: rgba(255, 255, 255, 0.95);
-            padding: 5px; border-radius: 30px; align-items: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-        }
-        .input-area input {
-            flex: 1; padding: 12px 20px; border: none; outline: none;
-            background: transparent; font-size: 15px; color: #333;
-        }
-        .send-btn {
-            background: linear-gradient(135deg, #e73c7e, #ee7752);
-            color: white; border: none; width: 44px; height: 44px;
-            border-radius: 50%; cursor: pointer; transition: all 0.3s;
-            display: flex; justify-content: center; align-items: center; font-size: 16px;
-        }
-        .send-btn:hover {
-            background: linear-gradient(135deg, #23a6d5, #23d5ab);
-            transform: rotate(15deg);
-        }
-
-        .quick-actions {
-            display: flex; gap: 8px; margin-top: 15px;
-            flex-wrap: wrap; justify-content: center;
-        }
-        .quick-btn {
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
-            color: white; padding: 8px 15px; border-radius: 20px;
-            cursor: pointer; font-size: 12px; transition: all 0.3s;
-        }
-        .quick-btn:hover {
-            background: rgba(255,255,255,0.35);
-            transform: translateY(-2px);
-        }
-
-        .tabs { display: flex; gap: 5px; margin-bottom: 20px; }
-        .tab {
-            flex: 1; padding: 12px;
-            background: rgba(255,255,255,0.1);
-            border: none; border-radius: 10px;
-            color: rgba(255,255,255,0.7);
-            cursor: pointer; transition: all 0.3s; font-size: 14px;
-        }
-        .tab.active {
-            background: linear-gradient(135deg, #e73c7e, #ee7752);
             color: white;
         }
-        .tab:hover:not(.active) { background: rgba(255,255,255,0.2); }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
 
-        @media (max-width: 768px) {
-            body.sidebar-open { padding-left: 0; }
-            body.sidebar-open .menu-toggle { left: 20px; }
-            .sidebar.active { width: 100%; }
+        .user-btn:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 25px var(--primary-glow);
+        }
+
+        .user-btn img {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+        }
+
+        .user-btn span { font-weight: 600; font-size: 14px; }
+
+        .mobile-menu {
+            display: none;
+            width: 44px; height: 44px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* Main */
+        .main-wrapper {
+            display: flex;
+            min-height: 100vh;
+            padding-top: 75px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: rgba(10,10,26,0.7);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid var(--glass-border);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s;
+        }
+
+        .new-chat-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border: none;
+            border-radius: 14px;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .new-chat-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px var(--primary-glow);
+        }
+
+        .sidebar-section { margin-top: 25px; }
+
+        .sidebar-title {
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            padding-left: 10px;
+        }
+
+        .chat-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 6px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .chat-item:hover { background: var(--glass); color: white; }
+        .chat-item i { color: var(--primary); }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .sidebar-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 12px;
+            background: none;
+            border: none;
+            border-radius: 12px;
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .sidebar-btn:hover { background: var(--glass); color: white; }
+        .sidebar-btn.danger:hover { background: rgba(244,63,94,0.15); color: var(--accent); }
+
+        /* Chat Area */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 25px;
+            width: 100%;
+        }
+
+        /* Welcome */
+        .welcome {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .welcome-icon {
+            width: 120px; height: 120px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            border-radius: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 55px;
+            margin-bottom: 30px;
+            animation: iconFloat 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .welcome-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%; height: 100%;
+            background: inherit;
+            border-radius: inherit;
+            filter: blur(40px);
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        .welcome h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome p {
+            color: rgba(255,255,255,0.5);
+            font-size: 16px;
+            margin-bottom: 40px;
+            max-width: 450px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            max-width: 700px;
+        }
+
+        .feature {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(139,92,246,0.2);
+        }
+
+        .feature i {
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .feature h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+        .feature p { font-size: 12px; color: rgba(255,255,255,0.5); }
+
+        /* Messages */
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px 0;
+            display: none;
+        }
+
+        .messages.active { display: block; }
+
+        .message {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            animation: msgIn 0.3s ease;
+        }
+
+        @keyframes msgIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .msg-avatar {
+            width: 42px; height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .msg-avatar.user { background: linear-gradient(135deg, var(--accent), #ec4899); }
+        .msg-avatar.bot { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
+        .msg-avatar img { width: 100%; height: 100%; border-radius: 12px; object-fit: cover; }
+
+        .msg-body { flex: 1; }
+
+        .msg-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .msg-header .name { font-weight: 600; font-size: 14px; }
+        .msg-header .time { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+        .msg-content {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 18px;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .message.user .msg-content {
+            background: rgba(139,92,246,0.12);
+            border-color: rgba(139,92,246,0.25);
+        }
+
+        .msg-content code {
+            background: rgba(0,0,0,0.4);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-family: monospace;
+        }
+
+        .msg-content pre {
+            background: var(--dark-1);
+            border: 1px solid var(--glass-border);
+            padding: 15px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 12px 0;
+        }
+
+        /* Typing */
+        .typing {
+            display: flex;
+            gap: 5px;
+            padding: 8px 0;
+        }
+
+        .typing span {
+            width: 9px; height: 9px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: typeBounce 1.4s ease-in-out infinite;
+        }
+
+        .typing span:nth-child(2) { animation-delay: 0.15s; }
+        .typing span:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes typeBounce {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1.2); opacity: 1; }
+        }
+
+        /* Input */
+        .input-area { padding: 15px 0; }
+
+        .input-box {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            background: var(--dark-3);
+            border: 2px solid var(--glass-border);
+            border-radius: 22px;
+            padding: 14px 18px;
+            transition: all 0.3s;
+        }
+
+        .input-box:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 35px var(--primary-glow);
+        }
+
+        .input-box textarea {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            color: white;
+            font-size: 15px;
+            font-family: inherit;
+            resize: none;
+            max-height: 100px;
+            line-height: 1.5;
+        }
+
+        .input-box textarea::placeholder { color: rgba(255,255,255,0.35); }
+
+        .send-btn {
+            width: 44px; height: 44px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            font-size: 17px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-btn:hover:not(:disabled) {
+            transform: scale(1.08);
+            box-shadow: 0 8px 25px var(--primary-glow);
+        }
+
+        .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .input-hint {
+            text-align: center;
+            font-size: 11px;
+            color: rgba(255,255,255,0.3);
+            margin-top: 12px;
+        }
+
+        /* Modal */
+        .modal-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(15px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-bg.active { opacity: 1; visibility: visible; }
+
+        .modal {
+            background: linear-gradient(180deg, var(--dark-3), var(--dark-1));
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 35px;
+            width: 90%;
+            max-width: 420px;
+            transform: scale(0.9);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .modal-bg.active .modal { transform: scale(1); }
+
+        .modal-close {
+            position: absolute;
+            top: 18px; right: 18px;
+            width: 40px; height: 40px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .modal-close:hover { background: var(--accent); border-color: var(--accent); }
+
+        .modal-icon {
+            width: 75px; height: 75px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 22px;
+        }
+
+        .modal h2 { text-align: center; font-size: 24px; margin-bottom: 8px; }
+        .modal > p { text-align: center; color: rgba(255,255,255,0.5); font-size: 14px; margin-bottom: 25px; }
+
+        /* Profile Card */
+        .profile-card {
+            background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(6,182,212,0.15));
+            border: 1px solid rgba(139,92,246,0.3);
+            border-radius: 22px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        .profile-card img {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .profile-card h3 { font-size: 20px; margin-bottom: 5px; }
+        .profile-card p { color: rgba(255,255,255,0.5); font-size: 13px; margin-bottom: 12px; }
+
+        .profile-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(34,197,94,0.15);
+            color: var(--neon-green);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        /* Form */
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--glass);
+            border: 2px solid var(--glass-border);
+            border-radius: 14px;
+            color: white;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 25px var(--primary-glow);
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px var(--primary-glow);
+        }
+
+        .btn-danger {
+            background: rgba(244,63,94,0.15);
+            border: 1px solid rgba(244,63,94,0.3);
+            color: var(--accent);
+            margin-top: 12px;
+        }
+
+        .btn-danger:hover { background: rgba(244,63,94,0.25); }
+
+        /* Saved Accounts */
+        .saved-section {
+            margin-top: 22px;
+            padding-top: 22px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .saved-section h4 {
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
+        }
+
+        .saved-acc {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+        }
+
+        .saved-acc:hover {
+            border-color: var(--primary);
+            background: rgba(139,92,246,0.1);
+        }
+
+        .saved-acc img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+        .saved-acc .info { flex: 1; }
+        .saved-acc .info h5 { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+        .saved-acc .info p { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+        .saved-acc .del {
+            width: 32px; height: 32px;
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.3);
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        .saved-acc .del:hover { background: rgba(244,63,94,0.2); color: var(--accent); }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--dark-3);
+            border: 1px solid var(--glass-border);
+            padding: 16px 28px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 2000;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .toast.show { transform: translateX(-50%) translateY(0); }
+        .toast.success { border-color: var(--neon-green); }
+        .toast.error { border-color: var(--accent); }
+        .toast.success i { color: var(--neon-green); }
+        .toast.error i { color: var(--accent); }
+        .toast i { font-size: 20px; }
+        .toast span { font-size: 14px; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .sidebar {
+                position: fixed;
+                left: 0; top: 75px;
+                height: calc(100% - 75px);
+                z-index: 99;
+                transform: translateX(-100%);
+            }
+            .sidebar.show { transform: translateX(0); }
+            .mobile-menu { display: flex; align-items: center; justify-content: center; }
+            .features { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 500px) {
+            .header { padding: 0 15px; }
+            .logo-text { font-size: 20px; }
+            .logo-icon { width: 40px; height: 40px; font-size: 18px; }
+            .user-btn span { display: none; }
+            .welcome h1 { font-size: 28px; }
+            .chat-area { padding: 15px; }
         }
     </style>
 </head>
 <body>
 
-    <button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()">
-        <span></span><span></span><span></span>
-    </button>
+    <div class="cosmic-bg"></div>
+    <div class="stars" id="stars"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
 
-    <button class="top-right-btn" onclick="openModal('accountModal')">
-        <i class="fas fa-user-plus"></i> Akkount qo'shish
-    </button>
-
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h2><i class="fas fa-robot"></i> Nurik<span>AI</span></h2>
-            <button class="close-sidebar" onclick="closeSidebar()"><i class="fas fa-times"></i></button>
+    <!-- Header -->
+    <header class="header">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <button class="mobile-menu" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+                <span class="logo-text">NurikAI</span>
+            </div>
         </div>
-        <div class="menu-item active"><i class="fas fa-comments"></i> Chat</div>
-        <div class="menu-item" onclick="openModal('imageModal'); closeSidebar();"><i class="fas fa-image"></i> Rasm yaratish</div>
-        <div class="menu-item" onclick="openModal('profileModal'); closeSidebar();"><i class="fas fa-user"></i> Profil</div>
-        <div class="menu-item" onclick="openModal('historyModal'); closeSidebar();"><i class="fas fa-history"></i> Tarix</div>
-        <div class="menu-item" onclick="openModal('settingsModal'); closeSidebar();"><i class="fas fa-cog"></i> Sozlamalar</div>
-        <div class="menu-item danger" onclick="clearChat(); closeSidebar();"><i class="fas fa-trash"></i> Chatni tozalash</div>
-        <div class="sidebar-footer">NurikAI v2.0 &copy; 2025</div>
+        <div class="header-right">
+            <div class="user-btn" onclick="openModal('accModal')">
+                <img id="hdrAvatar" src="https://ui-avatars.com/api/?name=M&background=8b5cf6&color=fff" alt="">
+                <span id="hdrName">Mehmon</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <div class="main-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <button class="new-chat-btn" onclick="newChat()">
+                <i class="fas fa-plus"></i> Yangi Suhbat
+            </button>
+            <div class="sidebar-section">
+                <div class="sidebar-title">Tarix</div>
+                <div class="chat-item"><i class="fas fa-message"></i><span>NurikAI bilan suhbat</span></div>
+            </div>
+            <div class="sidebar-footer">
+                <button class="sidebar-btn" onclick="openModal('settingsModal')"><i class="fas fa-cog"></i> Sozlamalar</button>
+                <button class="sidebar-btn danger" onclick="clearChat()"><i class="fas fa-trash"></i> Tozalash</button>
+            </div>
+        </aside>
+
+        <main class="chat-area">
+            <!-- Welcome -->
+            <div class="welcome" id="welcome">
+                <div class="welcome-icon"><i class="fas fa-robot"></i></div>
+                <h1>NurikAI ga Xush Kelibsiz!</h1>
+                <p>Sun'iy intellekt yordamchingiz. Istalgan savolingizni bering.</p>
+                <div class="features">
+                    <div class="feature" onclick="quickSend('Dasturlashni o`rgat')">
+                        <i class="fas fa-code"></i>
+                        <h3>Dasturlash</h3>
+                        <p>Kod yozishni o'rganing</p>
+                    </div>
+                    <div class="feature" onclick="quickSend('Matematika yordam ber')">
+                        <i class="fas fa-brain"></i>
+                        <h3>Matematika</h3>
+                        <p>Masalalar yechish</p>
+                    </div>
+                    <div class="feature" onclick="quickSend('Hikoya yozib ber')">
+                        <i class="fas fa-pen-fancy"></i>
+                        <h3>Ijod</h3>
+                        <p>Hikoya va maqolalar</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages -->
+            <div class="messages" id="messages"></div>
+
+            <!-- Input -->
+            <div class="input-area">
+                <div class="input-box">
+                    <textarea id="userInput" placeholder="Xabaringizni yozing..." rows="1" onkeydown="handleKey(event)"></textarea>
+                    <button class="send-btn" id="sendBtn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+                </div>
+                <p class="input-hint">NurikAI xato qilishi mumkin. Ma'lumotlarni tekshiring.</p>
+            </div>
+        </main>
     </div>
 
-    <!-- AKKOUNT MODAL -->
-    <div class="modal-overlay" id="accountModal">
+    <!-- Account Modal -->
+    <div class="modal-bg" id="accModal">
         <div class="modal">
-            <div class="modal-header">
-                <h3><i class="fas fa-user-circle"></i> Akkount</h3>
-                <button class="modal-close" onclick="closeModal('accountModal')"><i class="fas fa-times"></i></button>
+            <button class="modal-close" onclick="closeModal('accModal')"><i class="fas fa-times"></i></button>
+            
+            <!-- Logged In -->
+            <div id="loggedView" style="display:none;">
+                <div class="profile-card">
+                    <img id="profAvatar" src="" alt="">
+                    <h3 id="profName">Foydalanuvchi</h3>
+                    <p id="profEmail">email@example.com</p>
+                    <div class="profile-badge"><i class="fas fa-check-circle"></i> Faol</div>
+                </div>
+                <button class="btn btn-danger" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Chiqish</button>
             </div>
-            <div class="modal-content">
-                <div class="tabs">
-                    <button class="tab active" onclick="switchTab('login')">Kirish</button>
-                    <button class="tab" onclick="switchTab('signup')">Ro'yxatdan o'tish</button>
+
+            <!-- Login -->
+            <div id="loginView">
+                <div class="modal-icon"><i class="fas fa-user-astronaut"></i></div>
+                <h2>Xush Kelibsiz!</h2>
+                <p>Akkountingizga kiring</p>
+                <div class="form-group">
+                    <label>Ismingiz</label>
+                    <input type="text" id="inpName" placeholder="Ismingiz">
                 </div>
-                <div class="tab-content active" id="loginTab">
-                    <button class="btn btn-google" onclick="googleLogin()">
-                        <img src="https://www.google.com/favicon.ico" alt="Google"> Google bilan kirish
-                    </button>
-                    <div class="divider"><span>yoki</span></div>
-                    <div class="input-group"><label>Email</label><input type="email" id="loginEmail" placeholder="email@example.com"></div>
-                    <div class="input-group"><label>Parol</label><input type="password" id="loginPassword" placeholder="••••••••"></div>
-                    <button class="btn btn-primary" onclick="login()"><i class="fas fa-sign-in-alt"></i> Kirish</button>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="inpEmail" placeholder="email@example.com">
                 </div>
-                <div class="tab-content" id="signupTab">
-                    <button class="btn btn-google" onclick="googleLogin()">
-                        <img src="https://www.google.com/favicon.ico" alt="Google"> Google bilan ro'yxatdan o'tish
-                    </button>
-                    <div class="divider"><span>yoki</span></div>
-                    <div class="input-group"><label>Ism</label><input type="text" id="signupName" placeholder="Ismingiz"></div>
-                    <div class="input-group"><label>Email</label><input type="email" id="signupEmail" placeholder="email@example.com"></div>
-                    <div class="input-group"><label>Parol</label><input type="password" id="signupPassword" placeholder="••••••••"></div>
-                    <div class="input-group"><label>Parolni tasdiqlang</label><input type="password" id="signupConfirm" placeholder="••••••••"></div>
-                    <button class="btn btn-primary" onclick="signup()"><i class="fas fa-user-plus"></i> Ro'yxatdan o'tish</button>
+                <button class="btn btn-primary" onclick="loginUser()"><i class="fas fa-rocket"></i> Kirish</button>
+                <div class="saved-section" id="savedSection" style="display:none;">
+                    <h4>Saqlangan Akkountlar</h4>
+                    <div id="savedList"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- RASM MODAL -->
-    <div class="modal-overlay" id="imageModal">
+    <!-- Settings Modal -->
+    <div class="modal-bg" id="settingsModal">
         <div class="modal">
-            <div class="modal-header">
-                <h3><i class="fas fa-image"></i> Rasm yaratish</h3>
-                <button class="modal-close" onclick="closeModal('imageModal')"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-content">
-                <div class="image-preview" id="imagePreview"><i class="fas fa-image"></i></div>
-                <div class="input-group"><label>Rasm tavsifi</label><textarea id="imagePrompt" placeholder="Masalan: Chiroyli tog' manzarasi..."></textarea></div>
-                <div class="input-group">
-                    <label>Stil</label>
-                    <select id="imageStyle">
-                        <option value="realistic">Realistik</option>
-                        <option value="cartoon">Multfilm</option>
-                        <option value="anime">Anime</option>
-                        <option value="3d">3D Render</option>
-                    </select>
-                </div>
-                <button class="btn btn-primary" onclick="generateImage()"><i class="fas fa-magic"></i> Rasm yaratish</button>
+            <button class="modal-close" onclick="closeModal('settingsModal')"><i class="fas fa-times"></i></button>
+            <div class="modal-icon"><i class="fas fa-cog"></i></div>
+            <h2>Sozlamalar</h2>
+            <p>NurikAI v3.0</p>
+            <div style="color:rgba(255,255,255,0.6); line-height:2; margin-top:20px;">
+                <p><strong>Model:</strong> Gemini 2.0 Flash</p>
+                <p><strong>Yaratuvchi:</strong> NurikAI Team</p>
             </div>
         </div>
     </div>
 
-    <!-- PROFIL MODAL -->
-    <div class="modal-overlay" id="profileModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3><i class="fas fa-user"></i> Profil</h3>
-                <button class="modal-close" onclick="closeModal('profileModal')"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-content">
-                <div class="profile-avatar"><i class="fas fa-user"></i></div>
-                <div class="input-group"><label>Ism</label><input type="text" id="profileName" value="Foydalanuvchi"></div>
-                <div class="input-group"><label>Email</label><input type="email" id="profileEmail" value="user@example.com"></div>
-                <div class="input-group"><label>Bio</label><textarea id="profileBio" placeholder="O'zingiz haqingizda..."></textarea></div>
-                <button class="btn btn-primary" onclick="saveProfile()"><i class="fas fa-save"></i> Saqlash</button>
-                <button class="btn btn-secondary" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Chiqish</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- TARIX MODAL -->
-    <div class="modal-overlay" id="historyModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3><i class="fas fa-history"></i> Suhbat tarixi</h3>
-                <button class="modal-close" onclick="closeModal('historyModal')"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-content" id="historyContent">
-                <div class="history-empty"><i class="fas fa-inbox"></i><p>Hozircha tarix yo'q</p></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SOZLAMALAR MODAL -->
-    <div class="modal-overlay" id="settingsModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3><i class="fas fa-cog"></i> Sozlamalar</h3>
-                <button class="modal-close" onclick="closeModal('settingsModal')"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-content">
-                <div class="setting-item">
-                    <div class="setting-info"><h4>Qorong'u rejim</h4><p>Qorong'u tema yoqish</p></div>
-                    <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
-                </div>
-                <div class="setting-item">
-                    <div class="setting-info"><h4>Bildirishnomalar</h4><p>Push bildirishnomalar</p></div>
-                    <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
-                </div>
-                <div class="setting-item">
-                    <div class="setting-info"><h4>Tarixni saqlash</h4><p>Suhbatlarni saqlash</p></div>
-                    <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
-                </div>
-                <div class="input-group" style="margin-top: 20px;">
-                    <label>Til</label>
-                    <select><option value="uz">O'zbekcha</option><option value="ru">Русский</option><option value="en">English</option></select>
-                </div>
-                <button class="btn btn-primary" onclick="saveSettings()"><i class="fas fa-save"></i> Saqlash</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MAIN CHAT -->
-    <div class="card">
-        <h2><i class="fas fa-robot"></i> NurikAI Chat</h2>
-        <div class="status-bar"><div class="status-dot"></div><span>Online — tayyor</span></div>
-        <div class="chat-header">
-            <span>💬 Suhbat</span>
-            <button class="clear-btn" onclick="clearChat()"><i class="fas fa-trash"></i> Tozalash</button>
-        </div>
-        <div class="chat-box" id="chatBox">
-            <div class="message bot-msg"><div class="msg-label">🤖 NurikAI</div>Assalomu alaykum! Men NurikAI yordamchiman. Savolingizni yozing! 😊</div>
-        </div>
-        <div class="input-area">
-            <input type="text" id="userInput" placeholder="Xabaringizni yozing..." autocomplete="off">
-            <button class="send-btn" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
-        </div>
-        <div class="quick-actions">
-            <button class="quick-btn" onclick="quickSend('Dasturlash haqida')">💻 Dasturlash</button>
-            <button class="quick-btn" onclick="quickSend('Matematika')">🔢 Matematika</button>
-            <button class="quick-btn" onclick="quickSend('Hikoya yoz')">📖 Hikoya</button>
-            <button class="quick-btn" onclick="quickSend('Rasm yarat: tabiat')">🎨 Rasm</button>
-        </div>
-    </div>
+    <!-- Toast -->
+    <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg"></span></div>
 
     <script>
-        // ============ XAVFSIZ API KALIT - BASE64 ============
-        const encodedKey = "QUl6YVN5QXFnY0h4Z3NPdGNMOVloMndvUTV5WlJ0LWdJUW9EbHFn";
-        const API_KEY = atob(encodedKey);
+        // ============================================================
+        // ⚠️ API KALITNI SHU YERGA QO'YING!
+        // ============================================================
+        const API_KEY = "QUl6YVN5QXQzQ1FhT3ktc1ZqOUw0OW52TGdrWk1MSFlZT2JITUpJDQo";
 
-        // ============ ENDPOINTS ============
-        const endpoints = [
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent",
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent"
+        // Endpoints
+        const ENDPOINTS = [
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`
         ];
-        const imageEndpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent";
 
-        // ============ DOM ============
-        const chatBox = document.getElementById('chatBox');
-        const userInput = document.getElementById('userInput');
-        const sendBtn = document.getElementById('sendBtn');
-        const sidebar = document.getElementById('sidebar');
-        const menuToggle = document.getElementById('menuToggle');
+        let currentUser = null;
+        let isProcessing = false;
 
-        // ============ SIDEBAR ============
-        function toggleSidebar() {
-            sidebar.classList.toggle('active');
-            menuToggle.classList.toggle('active');
-            document.body.classList.toggle('sidebar-open');
+        // ============================================================
+        // Init
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            loadUser();
+            renderSaved();
+            setupInput();
+        });
+
+        function createStars() {
+            const c = document.getElementById('stars');
+            for (let i = 0; i < 80; i++) {
+                const s = document.createElement('div');
+                s.className = 'star';
+                s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;width:${Math.random()*2+1}px;height:${Math.random()*2+1}px;animation-delay:${Math.random()*3}s;`;
+                c.appendChild(s);
+            }
         }
-        function closeSidebar() {
-            sidebar.classList.remove('active');
-            menuToggle.classList.remove('active');
-            document.body.classList.remove('sidebar-open');
+
+        // ============================================================
+        // Toast
+        // ============================================================
+        function toast(msg, type = 'success') {
+            const t = document.getElementById('toast');
+            const i = t.querySelector('i');
+            document.getElementById('toastMsg').textContent = msg;
+            t.className = `toast ${type}`;
+            i.className = `fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}`;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3500);
         }
 
-        // ============ MODAL ============
+        // ============================================================
+        // Modal
+        // ============================================================
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-        document.querySelectorAll('.modal-overlay').forEach(o => {
-            o.addEventListener('click', e => { if (e.target === o) o.classList.remove('active'); });
+        document.querySelectorAll('.modal-bg').forEach(m => {
+            m.addEventListener('click', e => { if (e.target === m) m.classList.remove('active'); });
         });
 
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') {
-                closeSidebar();
-                document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+        // ============================================================
+        // Sidebar
+        // ============================================================
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('show'); }
+
+        // ============================================================
+        // User
+        // ============================================================
+        function loginUser() {
+            const name = document.getElementById('inpName').value.trim();
+            const email = document.getElementById('inpEmail').value.trim();
+            if (!name || !email) { toast("Ism va email kiriting!", 'error'); return; }
+
+            const user = {
+                name, email,
+                avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=8b5cf6&color=fff&size=200`,
+                uid: 'u_' + Date.now()
+            };
+
+            currentUser = user;
+            localStorage.setItem('nurikUser', JSON.stringify(user));
+            saveAcc(user);
+            updateUI();
+            toast(`Xush kelibsiz, ${name}!`);
+            closeModal('accModal');
+        }
+
+        function saveAcc(u) {
+            let list = JSON.parse(localStorage.getItem('nurikAccounts') || '[]');
+            if (!list.find(a => a.email === u.email)) {
+                list.push(u);
+                localStorage.setItem('nurikAccounts', JSON.stringify(list));
             }
-        });
-
-        // ============ TAB ============
-        function switchTab(tab) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            if (tab === 'login') {
-                document.querySelectorAll('.tab')[0].classList.add('active');
-                document.getElementById('loginTab').classList.add('active');
-            } else {
-                document.querySelectorAll('.tab')[1].classList.add('active');
-                document.getElementById('signupTab').classList.add('active');
-            }
+            renderSaved();
         }
 
-        function toggleSwitch(el) { el.classList.toggle('active'); }
+        function loadUser() {
+            const s = localStorage.getItem('nurikUser');
+            if (s) { currentUser = JSON.parse(s); updateUI(); }
+        }
 
-        // ============ AKKOUNT ============
-        function googleLogin() { alert("🔗 Google bilan kirish...\n\nFirebase Auth sozlang."); }
-        function login() {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            if (!email || !password) { alert("⚠️ Barcha maydonlarni to'ldiring!"); return; }
-            alert(`✅ Xush kelibsiz!\nEmail: ${email}`);
-            closeModal('accountModal');
-        }
-        function signup() {
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            const confirm = document.getElementById('signupConfirm').value;
-            if (!name || !email || !password || !confirm) { alert("⚠️ Barcha maydonlarni to'ldiring!"); return; }
-            if (password !== confirm) { alert("⚠️ Parollar mos kelmaydi!"); return; }
-            localStorage.setItem('nurikUser', JSON.stringify({ name, email }));
-            alert(`✅ Ro'yxatdan o'tdingiz!\nIsmingiz: ${name}`);
-            closeModal('accountModal');
-        }
         function logout() {
-            if (confirm("Chiqmoqchimisiz?")) {
-                localStorage.removeItem('nurikUser');
-                alert("👋 Chiqildi!");
-                closeModal('profileModal');
+            currentUser = null;
+            localStorage.removeItem('nurikUser');
+            updateUI();
+            toast("Chiqdingiz!");
+            closeModal('accModal');
+        }
+
+        function updateUI() {
+            if (currentUser) {
+                document.getElementById('hdrAvatar').src = currentUser.avatar;
+                document.getElementById('hdrName').textContent = currentUser.name.split(' ')[0];
+                document.getElementById('profAvatar').src = currentUser.avatar;
+                document.getElementById('profName').textContent = currentUser.name;
+                document.getElementById('profEmail').textContent = currentUser.email;
+                document.getElementById('loginView').style.display = 'none';
+                document.getElementById('loggedView').style.display = 'block';
+            } else {
+                document.getElementById('hdrAvatar').src = "https://ui-avatars.com/api/?name=M&background=8b5cf6&color=fff";
+                document.getElementById('hdrName').textContent = "Mehmon";
+                document.getElementById('loginView').style.display = 'block';
+                document.getElementById('loggedView').style.display = 'none';
             }
         }
-        function saveProfile() { alert("✅ Profil saqlandi!"); closeModal('profileModal'); }
-        function saveSettings() { alert("✅ Sozlamalar saqlandi!"); closeModal('settingsModal'); }
 
-        function generateImage() {
-            const prompt = document.getElementById('imagePrompt').value;
-            const style = document.getElementById('imageStyle').value;
-            if (!prompt) { alert("⚠️ Rasm tavsifini kiriting!"); return; }
-            closeModal('imageModal');
-            appendMessage(`Rasm yarat: ${prompt}, stil: ${style}`, 'user');
-            fetchImageResponse(`Rasm yarat: ${prompt}, stil: ${style}`);
+        function renderSaved() {
+            const list = JSON.parse(localStorage.getItem('nurikAccounts') || '[]');
+            const sec = document.getElementById('savedSection');
+            const div = document.getElementById('savedList');
+
+            if (list.length > 0 && !currentUser) {
+                sec.style.display = 'block';
+                div.innerHTML = list.map((a, i) => `
+                    <div class="saved-acc" onclick="quickLogin('${a.email}')">
+                        <img src="${a.avatar}" alt="">
+                        <div class="info"><h5>${a.name}</h5><p>${a.email}</p></div>
+                        <button class="del" onclick="event.stopPropagation();delAcc(${i})"><i class="fas fa-times"></i></button>
+                    </div>
+                `).join('');
+            } else {
+                sec.style.display = 'none';
+            }
         }
 
-        // ============ CHAT ============
-        function appendMessage(text, type) {
-            const msgDiv = document.createElement('div');
-            msgDiv.classList.add('message', type === 'user' ? 'user-msg' : 'bot-msg');
-            const label = document.createElement('div');
-            label.classList.add('msg-label');
-            label.textContent = type === 'user' ? '👤 Siz' : '🤖 NurikAI';
-            msgDiv.appendChild(label);
-            msgDiv.appendChild(document.createTextNode(text));
-            chatBox.appendChild(msgDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
-            saveToHistory(text, type);
+        function quickLogin(email) {
+            const list = JSON.parse(localStorage.getItem('nurikAccounts') || '[]');
+            const a = list.find(x => x.email === email);
+            if (a) {
+                currentUser = a;
+                localStorage.setItem('nurikUser', JSON.stringify(a));
+                updateUI();
+                toast(`Xush kelibsiz, ${a.name}!`);
+                closeModal('accModal');
+            }
         }
 
-        function appendImage(base64, mime) {
-            const msgDiv = document.createElement('div');
-            msgDiv.classList.add('message', 'bot-msg');
-            const label = document.createElement('div');
-            label.classList.add('msg-label');
-            label.textContent = '🤖 NurikAI - Rasm';
-            msgDiv.appendChild(label);
-            const img = document.createElement('img');
-            img.src = `data:${mime};base64,${base64}`;
-            img.classList.add('generated-image');
-            msgDiv.appendChild(img);
-            chatBox.appendChild(msgDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
+        function delAcc(i) {
+            let list = JSON.parse(localStorage.getItem('nurikAccounts') || '[]');
+            list.splice(i, 1);
+            localStorage.setItem('nurikAccounts', JSON.stringify(list));
+            renderSaved();
+            toast("O'chirildi");
         }
 
-        function saveToHistory(text, type) {
-            let h = JSON.parse(localStorage.getItem('nurikHistory') || '[]');
-            h.unshift({ text: text.substring(0, 50) + (text.length > 50 ? '...' : ''), type, date: new Date().toLocaleString('uz') });
-            h = h.slice(0, 20);
-            localStorage.setItem('nurikHistory', JSON.stringify(h));
-            updateHistoryUI();
+        // ============================================================
+        // Chat
+        // ============================================================
+        function newChat() {
+            document.getElementById('messages').innerHTML = '';
+            document.getElementById('welcome').style.display = 'flex';
+            document.getElementById('messages').classList.remove('active');
+            document.getElementById('sidebar').classList.remove('show');
+            toast("Yangi suhbat!");
         }
-
-        function updateHistoryUI() {
-            const h = JSON.parse(localStorage.getItem('nurikHistory') || '[]');
-            const c = document.getElementById('historyContent');
-            if (h.length === 0) { c.innerHTML = `<div class="history-empty"><i class="fas fa-inbox"></i><p>Hozircha tarix yo'q</p></div>`; return; }
-            c.innerHTML = h.map(i => `<div class="history-item"><div class="date">${i.date}</div><div class="text">${i.type === 'user' ? '👤' : '🤖'} ${i.text}</div></div>`).join('');
-        }
-        updateHistoryUI();
 
         function clearChat() {
-            if (confirm("Chatni tozalamoqchimisiz?")) {
-                chatBox.innerHTML = '';
-                const s = document.createElement('div');
-                s.classList.add('message', 'system-msg');
-                s.textContent = "🔄 Chat tozalandi!";
-                chatBox.appendChild(s);
-                setTimeout(() => appendMessage("Chat tozalandi. Yangi savol bering! 😊", 'bot'), 500);
-            }
+            if (confirm("Tozalashni xohlaysizmi?")) newChat();
+        }
+
+        function addMsg(text, type) {
+            const c = document.getElementById('messages');
+            document.getElementById('welcome').style.display = 'none';
+            c.classList.add('active');
+
+            const avatar = type === 'user'
+                ? (currentUser?.avatar || "https://ui-avatars.com/api/?name=U&background=f43f5e&color=fff")
+                : "https://ui-avatars.com/api/?name=AI&background=8b5cf6&color=fff";
+            const name = type === 'user' ? (currentUser?.name || 'Siz') : 'NurikAI';
+            const time = new Date().toLocaleTimeString('uz', {hour:'2-digit',minute:'2-digit'});
+
+            const d = document.createElement('div');
+            d.className = `message ${type}`;
+            d.innerHTML = `
+                <div class="msg-avatar ${type}"><img src="${avatar}" alt=""></div>
+                <div class="msg-body">
+                    <div class="msg-header"><span class="name">${name}</span><span class="time">${time}</span></div>
+                    <div class="msg-content">${formatText(text)}</div>
+                </div>
+            `;
+            c.appendChild(d);
+            c.scrollTop = c.scrollHeight;
+        }
+
+        function formatText(t) {
+            return t
+                .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+                .replace(/`([^`]+)`/g, '<code>$1</code>')
+                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br>');
         }
 
         function showTyping() {
-            const t = document.createElement('div');
-            t.classList.add('message', 'bot-msg');
-            t.id = 'typing';
-            const l = document.createElement('div');
-            l.classList.add('msg-label');
-            l.textContent = '🤖 NurikAI';
-            t.appendChild(l);
+            const c = document.getElementById('messages');
             const d = document.createElement('div');
-            d.classList.add('typing-indicator');
-            d.innerHTML = '<span></span><span></span><span></span>';
-            t.appendChild(d);
-            chatBox.appendChild(t);
-            chatBox.scrollTop = chatBox.scrollHeight;
+            d.className = 'message bot';
+            d.id = 'typingMsg';
+            d.innerHTML = `
+                <div class="msg-avatar bot"><img src="https://ui-avatars.com/api/?name=AI&background=8b5cf6&color=fff" alt=""></div>
+                <div class="msg-body">
+                    <div class="msg-header"><span class="name">NurikAI</span><span class="time">yozmoqda...</span></div>
+                    <div class="msg-content"><div class="typing"><span></span><span></span><span></span></div></div>
+                </div>
+            `;
+            c.appendChild(d);
+            c.scrollTop = c.scrollHeight;
         }
 
-        function hideTyping() { const t = document.getElementById('typing'); if (t) t.remove(); }
+        function hideTyping() {
+            const t = document.getElementById('typingMsg');
+            if (t) t.remove();
+        }
 
-        async function fetchTextResponse(prompt) {
+        // ============================================================
+        // AI
+        // ============================================================
+        async function getAI(prompt) {
+            if (isProcessing) return;
+            isProcessing = true;
+            document.getElementById('sendBtn').disabled = true;
             showTyping();
-            for (let i = 0; i < endpoints.length; i++) {
+
+            for (const url of ENDPOINTS) {
                 try {
-                    const r = await fetch(`${endpoints[i]}?key=${API_KEY}`, {
+                    console.log("Trying:", url.split('models/')[1]?.split(':')[0]);
+
+                    const res = await fetch(url, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: prompt }] }],
+                            generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
+                        })
                     });
-                    const d = await r.json();
-                    if (d.candidates && d.candidates[0]?.content?.parts?.[0]?.text) {
+
+                    const data = await res.json();
+                    console.log("Response:", data);
+
+                    if (data.candidates?.[0]?.content?.parts?.[0]?.text) {
                         hideTyping();
-                        appendMessage(d.candidates[0].content.parts[0].text, 'bot');
+                        addMsg(data.candidates[0].content.parts[0].text, 'bot');
+                        isProcessing = false;
+                        document.getElementById('sendBtn').disabled = false;
                         return;
                     }
-                } catch (e) { console.log(`Endpoint ${i + 1} xato:`, e); }
-            }
-            hideTyping();
-            appendMessage("⚠️ Xatolik yuz berdi. Qayta urinib ko'ring.", 'bot');
-        }
 
-        async function fetchImageResponse(prompt) {
-            showTyping();
-            try {
-                const r = await fetch(`${imageEndpoint}?key=${API_KEY}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: prompt }] }],
-                        generationConfig: { responseModalities: ["TEXT", "IMAGE"] }
-                    })
-                });
-                const d = await r.json();
-                hideTyping();
-                if (d.candidates && d.candidates[0]?.content?.parts) {
-                    for (const p of d.candidates[0].content.parts) {
-                        if (p.inlineData?.data) appendImage(p.inlineData.data, p.inlineData.mimeType || 'image/png');
-                        if (p.text) appendMessage(p.text, 'bot');
+                    if (data.error) {
+                        console.log("API Error:", data.error.message);
+                        if (data.error.message.includes('API key')) {
+                            hideTyping();
+                            addMsg("⚠️ API kalit noto'g'ri yoki muddati tugagan!\n\nYangi API kalit oling:\nhttps://aistudio.google.com/apikey", 'bot');
+                            isProcessing = false;
+                            document.getElementById('sendBtn').disabled = false;
+                            return;
+                        }
                     }
-                } else { appendMessage("⚠️ Rasm yaratib bo'lmadi.", 'bot'); }
-            } catch (e) { hideTyping(); appendMessage("⚠️ Rasm xatosi: " + e.message, 'bot'); }
+                } catch (e) {
+                    console.log("Network error:", e);
+                }
+            }
+
+            hideTyping();
+            addMsg("⚠️ Xatolik yuz berdi. Iltimos:\n\n1. Yangi API kalit oling\n2. Internet aloqasini tekshiring\n3. Qayta urinib ko'ring", 'bot');
+            isProcessing = false;
+            document.getElementById('sendBtn').disabled = false;
         }
 
-        async function fetchAIResponse(prompt) {
-            const l = prompt.toLowerCase();
-            if (l.includes("rasm yarat") || l.includes("rasm chiz") || l.startsWith("rasm:")) await fetchImageResponse(prompt);
-            else await fetchTextResponse(prompt);
-        }
-
+        // ============================================================
+        // Send
+        // ============================================================
         function sendMessage() {
-            const t = userInput.value.trim();
-            if (!t) return;
-            appendMessage(t, 'user');
-            userInput.value = '';
-            fetchAIResponse(t);
+            const inp = document.getElementById('userInput');
+            const text = inp.value.trim();
+            if (!text || isProcessing) return;
+            addMsg(text, 'user');
+            inp.value = '';
+            inp.style.height = 'auto';
+            getAI(text);
         }
 
-        function quickSend(t) { userInput.value = t; sendMessage(); }
+        function quickSend(t) {
+            addMsg(t, 'user');
+            getAI(t);
+        }
 
-        sendBtn.addEventListener('click', sendMessage);
-        userInput.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
+        function handleKey(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function setupInput() {
+            const inp = document.getElementById('userInput');
+            inp.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+            });
+        }
+
+        // Escape
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-bg.active').forEach(m => m.classList.remove('active'));
+            }
+        });
     </script>
 </body>
 </html>
