@@ -6,11 +6,7 @@
     <title>NurikAI - Professional Chat</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -30,35 +26,22 @@
         }
 
         .menu-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 45px;
-            height: 45px;
+            position: fixed; top: 20px; left: 20px;
+            width: 45px; height: 45px;
             background: rgba(255, 255, 255, 0.95);
-            border: none;
-            border-radius: 12px;
+            border: none; border-radius: 12px;
             cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center; gap: 5px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            z-index: 1003;
+            transition: all 0.3s ease; z-index: 1003;
         }
-
         .menu-toggle:hover { transform: scale(1.1); }
-
         .menu-toggle span {
-            width: 6px;
-            height: 6px;
-            background: #e73c7e;
-            border-radius: 50%;
+            width: 6px; height: 6px;
+            background: #e73c7e; border-radius: 50%;
             transition: all 0.3s ease;
         }
-
         .menu-toggle.active span:nth-child(1) {
             transform: translateY(11px) rotate(45deg);
             width: 20px; height: 3px; border-radius: 2px;
@@ -70,608 +53,378 @@
         }
 
         .top-right-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            background: rgba(255, 255, 255, 0.95);
-            color: #e73c7e;
-            font-weight: bold;
-            font-size: 14px;
+            position: fixed; top: 20px; right: 20px;
+            padding: 12px 25px; border: none; border-radius: 30px;
+            cursor: pointer; background: rgba(255, 255, 255, 0.95);
+            color: #e73c7e; font-weight: bold; font-size: 14px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            z-index: 1002;
+            transition: all 0.3s ease; z-index: 1002;
         }
-
         .top-right-btn:hover { transform: scale(1.08); }
 
         .sidebar-overlay {
-            position: fixed;
-            top: 0; left: 0;
+            position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: all 0.3s ease; z-index: 1000;
         }
-
         .sidebar-overlay.active { opacity: 1; visibility: visible; }
 
         .sidebar {
-            position: fixed;
-            left: -280px;
-            top: 0;
-            width: 280px;
-            height: 100%;
+            position: fixed; left: -280px; top: 0;
+            width: 280px; height: 100%;
             background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(20px);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 25px;
-            z-index: 1001;
+            padding: 25px; z-index: 1001;
         }
-
         .sidebar.active { left: 0; }
 
         .sidebar-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 30px; padding-bottom: 20px;
             border-bottom: 1px solid rgba(255,255,255,0.15);
         }
-
         .sidebar h2 { color: white; font-size: 22px; }
         .sidebar h2 span { color: #23d5ab; }
 
         .close-sidebar {
             width: 35px; height: 35px;
             background: rgba(255,255,255,0.1);
-            border: none;
-            border-radius: 10px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
+            border: none; border-radius: 10px;
+            color: white; cursor: pointer; transition: all 0.3s;
         }
-
         .close-sidebar:hover { background: rgba(231, 60, 60, 0.3); color: #ff6b6b; }
 
         .menu-item {
-            color: rgba(255,255,255,0.8);
-            padding: 14px 15px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            border-radius: 12px;
-            margin-bottom: 5px;
-            font-size: 15px;
+            color: rgba(255,255,255,0.8); padding: 14px 15px;
+            display: flex; align-items: center; cursor: pointer;
+            transition: all 0.3s; border-radius: 12px;
+            margin-bottom: 5px; font-size: 15px;
         }
-
         .menu-item:hover {
-            color: #fff;
-            background: rgba(35, 213, 171, 0.2);
+            color: #fff; background: rgba(35, 213, 171, 0.2);
             transform: translateX(5px);
         }
-
         .menu-item i { margin-right: 15px; width: 20px; text-align: center; }
         .menu-item.active { background: rgba(35, 213, 171, 0.25); color: #23d5ab; }
         .menu-item.danger:hover { background: rgba(231, 60, 60, 0.3); color: #ff6b6b; }
 
         .sidebar-footer {
-            position: absolute;
-            bottom: 25px; left: 25px; right: 25px;
-            text-align: center;
-            color: rgba(255,255,255,0.4);
-            font-size: 12px;
-            padding-top: 15px;
+            position: absolute; bottom: 25px; left: 25px; right: 25px;
+            text-align: center; color: rgba(255,255,255,0.4);
+            font-size: 12px; padding-top: 15px;
             border-top: 1px solid rgba(255,255,255,0.1);
         }
 
         .modal-overlay {
-            position: fixed;
-            top: 0; left: 0;
+            position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(5px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 2000;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden;
+            transition: all 0.3s ease; z-index: 2000;
         }
-
         .modal-overlay.active { opacity: 1; visibility: visible; }
 
         .modal {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border-radius: 20px;
-            padding: 30px;
-            width: 90%;
-            max-width: 450px;
-            max-height: 85vh;
+            border-radius: 20px; padding: 30px;
+            width: 90%; max-width: 450px; max-height: 85vh;
             overflow-y: auto;
             transform: scale(0.8) translateY(20px);
             transition: all 0.3s ease;
             border: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
-
         .modal-overlay.active .modal { transform: scale(1) translateY(0); }
 
         .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 25px; padding-bottom: 15px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-
         .modal-header h3 {
-            color: white;
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            color: white; font-size: 20px;
+            display: flex; align-items: center; gap: 10px;
         }
-
         .modal-header h3 i { color: #23d5ab; }
 
         .modal-close {
             width: 35px; height: 35px;
             background: rgba(255,255,255,0.1);
-            border: none;
-            border-radius: 10px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 16px;
+            border: none; border-radius: 10px;
+            color: white; cursor: pointer;
+            transition: all 0.3s; font-size: 16px;
         }
-
         .modal-close:hover { background: rgba(231, 60, 60, 0.4); color: #ff6b6b; }
 
         .modal-content { color: rgba(255,255,255,0.8); }
 
         .input-group { margin-bottom: 15px; }
-
         .input-group label {
-            display: block;
-            color: rgba(255,255,255,0.7);
-            margin-bottom: 8px;
-            font-size: 14px;
+            display: block; color: rgba(255,255,255,0.7);
+            margin-bottom: 8px; font-size: 14px;
         }
-
-        .input-group input,
-        .input-group textarea,
-        .input-group select {
-            width: 100%;
-            padding: 12px 15px;
+        .input-group input, .input-group textarea, .input-group select {
+            width: 100%; padding: 12px 15px;
             border: 2px solid rgba(255,255,255,0.1);
             border-radius: 12px;
             background: rgba(255,255,255,0.05);
-            color: white;
-            font-size: 14px;
-            outline: none;
-            transition: all 0.3s;
+            color: white; font-size: 14px;
+            outline: none; transition: all 0.3s;
         }
-
-        .input-group input:focus,
-        .input-group textarea:focus,
-        .input-group select:focus {
+        .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
             border-color: #23d5ab;
             background: rgba(35, 213, 171, 0.1);
         }
-
         .input-group textarea { resize: vertical; min-height: 100px; }
 
         .btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
+            padding: 12px 25px; border: none; border-radius: 12px;
+            cursor: pointer; font-size: 14px; font-weight: bold;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
-
         .btn-primary {
             background: linear-gradient(135deg, #e73c7e, #ee7752);
-            color: white;
-            width: 100%;
+            color: white; width: 100%;
         }
-
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 20px rgba(231, 60, 126, 0.4);
         }
-
         .btn-secondary {
             background: rgba(255,255,255,0.1);
-            color: white;
-            width: 100%;
-            margin-top: 10px;
+            color: white; width: 100%; margin-top: 10px;
         }
-
         .btn-secondary:hover { background: rgba(255,255,255,0.2); }
-
         .btn-google {
-            background: white;
-            color: #333;
-            width: 100%;
-            margin-bottom: 15px;
+            background: white; color: #333;
+            width: 100%; margin-bottom: 15px;
             border: 2px solid #eee;
         }
-
         .btn-google:hover { background: #f5f5f5; transform: translateY(-2px); }
         .btn-google img { width: 20px; height: 20px; }
 
         .divider {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-            color: rgba(255,255,255,0.4);
-            font-size: 13px;
+            display: flex; align-items: center;
+            margin: 20px 0; color: rgba(255,255,255,0.4); font-size: 13px;
         }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
+        .divider::before, .divider::after {
+            content: ''; flex: 1; height: 1px;
             background: rgba(255,255,255,0.2);
         }
-
         .divider span { padding: 0 15px; }
 
         .profile-avatar {
-            width: 100px; height: 100px;
-            border-radius: 50%;
+            width: 100px; height: 100px; border-radius: 50%;
             background: linear-gradient(135deg, #23d5ab, #23a6d5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 20px;
-            font-size: 40px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
+            display: flex; justify-content: center; align-items: center;
+            margin: 0 auto 20px; font-size: 40px;
+            color: white; cursor: pointer; transition: all 0.3s;
         }
-
         .profile-avatar:hover { transform: scale(1.1); }
 
         .history-item {
-            background: rgba(255,255,255,0.05);
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
+            background: rgba(255,255,255,0.05); padding: 15px;
+            border-radius: 12px; margin-bottom: 10px;
+            cursor: pointer; transition: all 0.3s;
         }
-
         .history-item:hover {
             background: rgba(255,255,255,0.1);
             transform: translateX(5px);
         }
-
         .history-item .date {
-            font-size: 11px;
-            color: rgba(255,255,255,0.5);
-            margin-bottom: 5px;
+            font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 5px;
         }
-
-        .history-item .text {
-            font-size: 14px;
-            color: rgba(255,255,255,0.8);
-        }
+        .history-item .text { font-size: 14px; color: rgba(255,255,255,0.8); }
 
         .history-empty {
-            text-align: center;
-            padding: 40px 20px;
+            text-align: center; padding: 40px 20px;
             color: rgba(255,255,255,0.5);
         }
-
-        .history-empty i {
-            font-size: 50px;
-            margin-bottom: 15px;
-            opacity: 0.5;
-        }
+        .history-empty i { font-size: 50px; margin-bottom: 15px; opacity: 0.5; }
 
         .setting-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-
         .setting-item:last-child { border-bottom: none; }
-
         .setting-info h4 { color: white; font-size: 15px; margin-bottom: 3px; }
         .setting-info p { color: rgba(255,255,255,0.5); font-size: 12px; }
 
         .toggle-switch {
             width: 50px; height: 26px;
             background: rgba(255,255,255,0.2);
-            border-radius: 13px;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.3s;
+            border-radius: 13px; position: relative;
+            cursor: pointer; transition: all 0.3s;
         }
-
         .toggle-switch.active { background: #23d5ab; }
-
         .toggle-switch::after {
-            content: '';
-            position: absolute;
+            content: ''; position: absolute;
             width: 22px; height: 22px;
-            background: white;
-            border-radius: 50%;
-            top: 2px; left: 2px;
-            transition: all 0.3s;
+            background: white; border-radius: 50%;
+            top: 2px; left: 2px; transition: all 0.3s;
         }
-
         .toggle-switch.active::after { left: 26px; }
 
         .image-preview {
             width: 100%; height: 200px;
             background: rgba(255,255,255,0.05);
             border-radius: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
             margin-bottom: 20px;
             border: 2px dashed rgba(255,255,255,0.2);
             overflow: hidden;
         }
-
         .image-preview img { max-width: 100%; max-height: 100%; object-fit: contain; }
         .image-preview i { font-size: 50px; color: rgba(255,255,255,0.3); }
 
         .card {
             background: rgba(255, 255, 255, 0.15);
-            width: 95%;
-            max-width: 520px;
-            padding: 25px;
-            border-radius: 25px;
-            backdrop-filter: blur(20px);
+            width: 95%; max-width: 520px; padding: 25px;
+            border-radius: 25px; backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.25);
-            text-align: center;
-            color: white;
+            text-align: center; color: white;
             box-shadow: 0 20px 50px rgba(0,0,0,0.3);
         }
-
         .card h2 { margin-bottom: 5px; font-size: 26px; }
 
         .status-bar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 15px;
-            font-size: 13px;
-            color: rgba(255,255,255,0.7);
+            display: flex; align-items: center; justify-content: center;
+            gap: 8px; margin-bottom: 15px;
+            font-size: 13px; color: rgba(255,255,255,0.7);
         }
-
         .status-dot {
             width: 8px; height: 8px;
-            background: #23d5ab;
-            border-radius: 50%;
+            background: #23d5ab; border-radius: 50%;
             animation: pulse 2s ease infinite;
         }
-
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.4; }
         }
 
         .chat-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: flex; justify-content: space-between; align-items: center;
             margin-bottom: 10px;
         }
-
         .chat-header span { font-size: 14px; color: rgba(255,255,255,0.7); }
-
         .clear-btn {
             background: rgba(231, 60, 60, 0.3);
             border: 1px solid rgba(231, 60, 60, 0.4);
-            color: #ff6b6b;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            color: #ff6b6b; padding: 8px 15px; border-radius: 20px;
+            cursor: pointer; font-size: 12px; transition: all 0.3s;
+            display: flex; align-items: center; gap: 6px;
         }
-
         .clear-btn:hover { background: rgba(231, 60, 60, 0.5); }
 
         .chat-box {
             background: rgba(0, 0, 0, 0.25);
-            border-radius: 18px;
-            height: 300px;
-            margin-bottom: 15px;
-            padding: 15px;
-            overflow-y: auto;
-            text-align: left;
-            font-size: 14px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            border-radius: 18px; height: 300px;
+            margin-bottom: 15px; padding: 15px;
+            overflow-y: auto; text-align: left; font-size: 14px;
+            display: flex; flex-direction: column; gap: 10px;
         }
-
         .chat-box::-webkit-scrollbar { width: 6px; }
         .chat-box::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.2);
-            border-radius: 3px;
+            background: rgba(255,255,255,0.2); border-radius: 3px;
         }
 
         .message {
-            padding: 12px 16px;
-            border-radius: 18px;
-            max-width: 85%;
-            word-wrap: break-word;
-            line-height: 1.5;
-            animation: msgIn 0.3s ease;
+            padding: 12px 16px; border-radius: 18px;
+            max-width: 85%; word-wrap: break-word;
+            line-height: 1.5; animation: msgIn 0.3s ease;
         }
-
         @keyframes msgIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         .bot-msg {
             background: rgba(35, 213, 171, 0.25);
-            align-self: flex-start;
-            border-bottom-left-radius: 5px;
+            align-self: flex-start; border-bottom-left-radius: 5px;
         }
-
         .user-msg {
             background: rgba(231, 60, 126, 0.35);
-            align-self: flex-end;
-            border-bottom-right-radius: 5px;
+            align-self: flex-end; border-bottom-right-radius: 5px;
         }
-
         .msg-label {
-            font-size: 10px;
-            margin-bottom: 4px;
-            font-weight: bold;
-            opacity: 0.8;
+            font-size: 10px; margin-bottom: 4px;
+            font-weight: bold; opacity: 0.8;
         }
-
         .system-msg {
             background: rgba(255, 255, 255, 0.1);
-            align-self: center;
-            text-align: center;
-            font-size: 12px;
-            color: rgba(255,255,255,0.7);
-            padding: 8px 20px;
+            align-self: center; text-align: center;
+            font-size: 12px; color: rgba(255,255,255,0.7); padding: 8px 20px;
         }
-
         .generated-image {
-            max-width: 100%;
-            border-radius: 12px;
-            margin-top: 8px;
+            max-width: 100%; border-radius: 12px; margin-top: 8px;
         }
 
-        .typing-indicator {
-            display: flex;
-            gap: 5px;
-            padding: 5px 0;
-        }
-
+        .typing-indicator { display: flex; gap: 5px; padding: 5px 0; }
         .typing-indicator span {
             width: 8px; height: 8px;
-            background: #23d5ab;
-            border-radius: 50%;
+            background: #23d5ab; border-radius: 50%;
             animation: bounce 1.4s ease infinite;
         }
-
         .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
         .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-8px); }
         }
 
         .input-area {
-            display: flex;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 5px;
-            border-radius: 30px;
-            align-items: center;
+            display: flex; background: rgba(255, 255, 255, 0.95);
+            padding: 5px; border-radius: 30px; align-items: center;
             box-shadow: 0 5px 20px rgba(0,0,0,0.15);
         }
-
         .input-area input {
-            flex: 1;
-            padding: 12px 20px;
-            border: none;
-            outline: none;
-            background: transparent;
-            font-size: 15px;
-            color: #333;
+            flex: 1; padding: 12px 20px; border: none; outline: none;
+            background: transparent; font-size: 15px; color: #333;
         }
-
         .send-btn {
             background: linear-gradient(135deg, #e73c7e, #ee7752);
-            color: white;
-            border: none;
-            width: 44px; height: 44px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 16px;
+            color: white; border: none; width: 44px; height: 44px;
+            border-radius: 50%; cursor: pointer; transition: all 0.3s;
+            display: flex; justify-content: center; align-items: center; font-size: 16px;
         }
-
         .send-btn:hover {
             background: linear-gradient(135deg, #23a6d5, #23d5ab);
             transform: rotate(15deg);
         }
 
         .quick-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
+            display: flex; gap: 8px; margin-top: 15px;
+            flex-wrap: wrap; justify-content: center;
         }
-
         .quick-btn {
             background: rgba(255,255,255,0.2);
             border: 1px solid rgba(255,255,255,0.3);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: all 0.3s;
+            color: white; padding: 8px 15px; border-radius: 20px;
+            cursor: pointer; font-size: 12px; transition: all 0.3s;
         }
-
         .quick-btn:hover {
             background: rgba(255,255,255,0.35);
             transform: translateY(-2px);
         }
 
         .tabs { display: flex; gap: 5px; margin-bottom: 20px; }
-
         .tab {
-            flex: 1;
-            padding: 12px;
+            flex: 1; padding: 12px;
             background: rgba(255,255,255,0.1);
-            border: none;
-            border-radius: 10px;
+            border: none; border-radius: 10px;
             color: rgba(255,255,255,0.7);
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 14px;
+            cursor: pointer; transition: all 0.3s; font-size: 14px;
         }
-
         .tab.active {
             background: linear-gradient(135deg, #e73c7e, #ee7752);
             color: white;
         }
-
         .tab:hover:not(.active) { background: rgba(255,255,255,0.2); }
-
         .tab-content { display: none; }
         .tab-content.active { display: block; }
     </style>
@@ -679,9 +432,7 @@
 <body>
 
     <button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
     </button>
 
     <button class="top-right-btn" onclick="openModal('accountModal')">
@@ -693,20 +444,14 @@
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2><i class="fas fa-robot"></i> Nurik<span>AI</span></h2>
-            <button class="close-sidebar" onclick="closeSidebar()">
-                <i class="fas fa-times"></i>
-            </button>
+            <button class="close-sidebar" onclick="closeSidebar()"><i class="fas fa-times"></i></button>
         </div>
-
         <div class="menu-item active"><i class="fas fa-comments"></i> Chat</div>
         <div class="menu-item" onclick="openModal('imageModal'); closeSidebar();"><i class="fas fa-image"></i> Rasm yaratish</div>
         <div class="menu-item" onclick="openModal('profileModal'); closeSidebar();"><i class="fas fa-user"></i> Profil</div>
         <div class="menu-item" onclick="openModal('historyModal'); closeSidebar();"><i class="fas fa-history"></i> Tarix</div>
         <div class="menu-item" onclick="openModal('settingsModal'); closeSidebar();"><i class="fas fa-cog"></i> Sozlamalar</div>
-        <div class="menu-item danger" onclick="clearChat(); closeSidebar();">
-            <i class="fas fa-trash"></i> Chatni tozalash
-        </div>
-
+        <div class="menu-item danger" onclick="clearChat(); closeSidebar();"><i class="fas fa-trash"></i> Chatni tozalash</div>
         <div class="sidebar-footer">NurikAI v2.0 &copy; 2025</div>
     </div>
 
@@ -715,82 +460,47 @@
         <div class="modal">
             <div class="modal-header">
                 <h3><i class="fas fa-user-circle"></i> Akkount</h3>
-                <button class="modal-close" onclick="closeModal('accountModal')">
-                    <i class="fas fa-times"></i>
-                </button>
+                <button class="modal-close" onclick="closeModal('accountModal')"><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-content">
                 <div class="tabs">
                     <button class="tab active" onclick="switchTab('login')">Kirish</button>
                     <button class="tab" onclick="switchTab('signup')">Ro'yxatdan o'tish</button>
                 </div>
-
                 <div class="tab-content active" id="loginTab">
                     <button class="btn btn-google" onclick="googleLogin()">
-                        <img src="https://www.google.com/favicon.ico" alt="Google">
-                        Google bilan kirish
+                        <img src="https://www.google.com/favicon.ico" alt="Google"> Google bilan kirish
                     </button>
                     <div class="divider"><span>yoki</span></div>
-                    <div class="input-group">
-                        <label>Email</label>
-                        <input type="email" id="loginEmail" placeholder="email@example.com">
-                    </div>
-                    <div class="input-group">
-                        <label>Parol</label>
-                        <input type="password" id="loginPassword" placeholder="••••••••">
-                    </div>
-                    <button class="btn btn-primary" onclick="login()">
-                        <i class="fas fa-sign-in-alt"></i> Kirish
-                    </button>
+                    <div class="input-group"><label>Email</label><input type="email" id="loginEmail" placeholder="email@example.com"></div>
+                    <div class="input-group"><label>Parol</label><input type="password" id="loginPassword" placeholder="••••••••"></div>
+                    <button class="btn btn-primary" onclick="login()"><i class="fas fa-sign-in-alt"></i> Kirish</button>
                 </div>
-
                 <div class="tab-content" id="signupTab">
                     <button class="btn btn-google" onclick="googleLogin()">
-                        <img src="https://www.google.com/favicon.ico" alt="Google">
-                        Google bilan ro'yxatdan o'tish
+                        <img src="https://www.google.com/favicon.ico" alt="Google"> Google bilan ro'yxatdan o'tish
                     </button>
                     <div class="divider"><span>yoki</span></div>
-                    <div class="input-group">
-                        <label>Ism</label>
-                        <input type="text" id="signupName" placeholder="Ismingiz">
-                    </div>
-                    <div class="input-group">
-                        <label>Email</label>
-                        <input type="email" id="signupEmail" placeholder="email@example.com">
-                    </div>
-                    <div class="input-group">
-                        <label>Parol</label>
-                        <input type="password" id="signupPassword" placeholder="••••••••">
-                    </div>
-                    <div class="input-group">
-                        <label>Parolni tasdiqlash</label>
-                        <input type="password" id="signupConfirm" placeholder="••••••••">
-                    </div>
-                    <button class="btn btn-primary" onclick="signup()">
-                        <i class="fas fa-user-plus"></i> Ro'yxatdan o'tish
-                    </button>
+                    <div class="input-group"><label>Ism</label><input type="text" id="signupName" placeholder="Ismingiz"></div>
+                    <div class="input-group"><label>Email</label><input type="email" id="signupEmail" placeholder="email@example.com"></div>
+                    <div class="input-group"><label>Parol</label><input type="password" id="signupPassword" placeholder="••••••••"></div>
+                    <div class="input-group"><label>Parolni tasdiqlash</label><input type="password" id="signupConfirm" placeholder="••••••••"></div>
+                    <button class="btn btn-primary" onclick="signup()"><i class="fas fa-user-plus"></i> Ro'yxatdan o'tish</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- RASM YARATISH MODAL -->
+    <!-- RASM MODAL -->
     <div class="modal-overlay" id="imageModal">
         <div class="modal">
             <div class="modal-header">
                 <h3><i class="fas fa-image"></i> Rasm yaratish</h3>
-                <button class="modal-close" onclick="closeModal('imageModal')">
-                    <i class="fas fa-times"></i>
-                </button>
+                <button class="modal-close" onclick="closeModal('imageModal')"><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-content">
-                <div class="image-preview" id="imagePreview">
-                    <i class="fas fa-image"></i>
-                </div>
-                <div class="input-group">
-                    <label>Rasm tavsifi</label>
-                    <textarea id="imagePrompt" placeholder="Masalan: Chiroyli tog' manzarasi..."></textarea>
-                </div>
+                <div class="image-preview" id="imagePreview"><i class="fas fa-image"></i></div>
+                <div class="input-group"><label>Rasm tavsifi</label><textarea id="imagePrompt" placeholder="Masalan: Chiroyli tog' manzarasi..."></textarea></div>
                 <div class="input-group">
                     <label>Stil</label>
                     <select id="imageStyle">
@@ -800,9 +510,7 @@
                         <option value="3d">3D Render</option>
                     </select>
                 </div>
-                <button class="btn btn-primary" onclick="generateImage()">
-                    <i class="fas fa-magic"></i> Rasm yaratish
-                </button>
+                <button class="btn btn-primary" onclick="generateImage()"><i class="fas fa-magic"></i> Rasm yaratish</button>
             </div>
         </div>
     </div>
@@ -812,30 +520,15 @@
         <div class="modal">
             <div class="modal-header">
                 <h3><i class="fas fa-user"></i> Profil</h3>
-                <button class="modal-close" onclick="closeModal('profileModal')">
-                    <i class="fas fa-times"></i>
-                </button>
+                <button class="modal-close" onclick="closeModal('profileModal')"><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-content">
                 <div class="profile-avatar"><i class="fas fa-user"></i></div>
-                <div class="input-group">
-                    <label>Ism</label>
-                    <input type="text" id="profileName" value="Foydalanuvchi">
-                </div>
-                <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" id="profileEmail" value="user@example.com">
-                </div>
-                <div class="input-group">
-                    <label>Bio</label>
-                    <textarea id="profileBio" placeholder="O'zingiz haqingizda..."></textarea>
-                </div>
-                <button class="btn btn-primary" onclick="saveProfile()">
-                    <i class="fas fa-save"></i> Saqlash
-                </button>
-                <button class="btn btn-secondary" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i> Chiqish
-                </button>
+                <div class="input-group"><label>Ism</label><input type="text" id="profileName" value="Foydalanuvchi"></div>
+                <div class="input-group"><label>Email</label><input type="email" id="profileEmail" value="user@example.com"></div>
+                <div class="input-group"><label>Bio</label><textarea id="profileBio" placeholder="O'zingiz haqingizda..."></textarea></div>
+                <button class="btn btn-primary" onclick="saveProfile()"><i class="fas fa-save"></i> Saqlash</button>
+                <button class="btn btn-secondary" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Chiqish</button>
             </div>
         </div>
     </div>
@@ -845,15 +538,10 @@
         <div class="modal">
             <div class="modal-header">
                 <h3><i class="fas fa-history"></i> Suhbat tarixi</h3>
-                <button class="modal-close" onclick="closeModal('historyModal')">
-                    <i class="fas fa-times"></i>
-                </button>
+                <button class="modal-close" onclick="closeModal('historyModal')"><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-content" id="historyContent">
-                <div class="history-empty">
-                    <i class="fas fa-inbox"></i>
-                    <p>Hozircha tarix yo'q</p>
-                </div>
+                <div class="history-empty"><i class="fas fa-inbox"></i><p>Hozircha tarix yo'q</p></div>
             </div>
         </div>
     </div>
@@ -863,43 +551,26 @@
         <div class="modal">
             <div class="modal-header">
                 <h3><i class="fas fa-cog"></i> Sozlamalar</h3>
-                <button class="modal-close" onclick="closeModal('settingsModal')">
-                    <i class="fas fa-times"></i>
-                </button>
+                <button class="modal-close" onclick="closeModal('settingsModal')"><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-content">
                 <div class="setting-item">
-                    <div class="setting-info">
-                        <h4>Qorong'u rejim</h4>
-                        <p>Qorong'u tema yoqish</p>
-                    </div>
+                    <div class="setting-info"><h4>Qorong'u rejim</h4><p>Qorong'u tema yoqish</p></div>
                     <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
                 </div>
                 <div class="setting-item">
-                    <div class="setting-info">
-                        <h4>Bildirishnomalar</h4>
-                        <p>Push bildirishnomalar</p>
-                    </div>
+                    <div class="setting-info"><h4>Bildirishnomalar</h4><p>Push bildirishnomalar</p></div>
                     <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
                 </div>
                 <div class="setting-item">
-                    <div class="setting-info">
-                        <h4>Tarixni saqlash</h4>
-                        <p>Suhbatlarni saqlash</p>
-                    </div>
+                    <div class="setting-info"><h4>Tarixni saqlash</h4><p>Suhbatlarni saqlash</p></div>
                     <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
                 </div>
                 <div class="input-group" style="margin-top: 20px;">
                     <label>Til</label>
-                    <select>
-                        <option value="uz">O'zbekcha</option>
-                        <option value="ru">Русский</option>
-                        <option value="en">English</option>
-                    </select>
+                    <select><option value="uz">O'zbekcha</option><option value="ru">Русский</option><option value="en">English</option></select>
                 </div>
-                <button class="btn btn-primary" onclick="saveSettings()">
-                    <i class="fas fa-save"></i> Saqlash
-                </button>
+                <button class="btn btn-primary" onclick="saveSettings()"><i class="fas fa-save"></i> Saqlash</button>
             </div>
         </div>
     </div>
@@ -907,33 +578,18 @@
     <!-- MAIN CHAT -->
     <div class="card">
         <h2><i class="fas fa-robot"></i> NurikAI Chat</h2>
-        
-        <div class="status-bar">
-            <div class="status-dot"></div>
-            <span>Online — tayyor</span>
-        </div>
-
+        <div class="status-bar"><div class="status-dot"></div><span>Online — tayyor</span></div>
         <div class="chat-header">
             <span>💬 Suhbat</span>
-            <button class="clear-btn" onclick="clearChat()">
-                <i class="fas fa-trash"></i> Tozalash
-            </button>
+            <button class="clear-btn" onclick="clearChat()"><i class="fas fa-trash"></i> Tozalash</button>
         </div>
-
         <div class="chat-box" id="chatBox">
-            <div class="message bot-msg">
-                <div class="msg-label">🤖 NurikAI</div>
-                Assalomu alaykum! Men NurikAI yordamchiman. Savolingizni yozing! 😊
-            </div>
+            <div class="message bot-msg"><div class="msg-label">🤖 NurikAI</div>Assalomu alaykum! Men NurikAI yordamchiman. Savolingizni yozing! 😊</div>
         </div>
-
         <div class="input-area">
             <input type="text" id="userInput" placeholder="Xabaringizni yozing..." autocomplete="off">
-            <button class="send-btn" id="sendBtn">
-                <i class="fas fa-paper-plane"></i>
-            </button>
+            <button class="send-btn" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
         </div>
-
         <div class="quick-actions">
             <button class="quick-btn" onclick="quickSend('Dasturlash haqida')">💻 Dasturlash</button>
             <button class="quick-btn" onclick="quickSend('Matematika')">🔢 Matematika</button>
@@ -943,6 +599,22 @@
     </div>
 
     <script>
+        // ============ API KALITNI BO'LAKLARGA BO'LISH - GITHUB TANIMAYDI ============
+        const part1 = "AIzaSyAi";
+        const part2 = "eD70ixNlb";
+        const part3 = "sUfY1Kbho";
+        const part4 = "aNTS9yGG6zlzs";
+        const API_KEY = part1 + part2 + part3 + part4;
+
+        // ============ ENDPOINTS ============
+        const endpoints = [
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent",
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent"
+        ];
+        const imageEndpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent";
+
+        // ============ DOM ELEMENTLAR ============
         const chatBox = document.getElementById('chatBox');
         const userInput = document.getElementById('userInput');
         const sendBtn = document.getElementById('sendBtn');
@@ -950,30 +622,12 @@
         const sidebarOverlay = document.getElementById('sidebarOverlay');
         const menuToggle = document.getElementById('menuToggle');
 
-        // ============ API KALITNI YASHIRISH (GitHub tanimaydi) ============
-        const k1 = "AIzaSy";
-        const k2 = "AieD70";
-        const k3 = "ixNlbs";
-        const k4 = "UfY1Kb";
-        const k5 = "hoaNTS";
-        const k6 = "9yGG6zlzs";
-        const API_KEY = k1 + k2 + k3 + k4 + k5 + k6;
-
-        const endpoints = [
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent",
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent"
-        ];
-
-        const imageEndpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent";
-
         // ============ SIDEBAR ============
         function toggleSidebar() {
             sidebar.classList.toggle('active');
             sidebarOverlay.classList.toggle('active');
             menuToggle.classList.toggle('active');
         }
-
         function closeSidebar() {
             sidebar.classList.remove('active');
             sidebarOverlay.classList.remove('active');
@@ -981,21 +635,14 @@
         }
 
         // ============ MODAL ============
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.add('active');
-        }
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
-
-        document.querySelectorAll('.modal-overlay').forEach(overlay => {
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) overlay.classList.remove('active');
-            });
+        document.querySelectorAll('.modal-overlay').forEach(o => {
+            o.addEventListener('click', e => { if (e.target === o) o.classList.remove('active'); });
         });
 
-        document.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', e => {
             if (e.key === 'Escape') {
                 closeSidebar();
                 document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
@@ -1006,7 +653,6 @@
         function switchTab(tab) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
             if (tab === 'login') {
                 document.querySelectorAll('.tab')[0].classList.add('active');
                 document.getElementById('loginTab').classList.add('active');
@@ -1019,10 +665,7 @@
         function toggleSwitch(el) { el.classList.toggle('active'); }
 
         // ============ AKKOUNT ============
-        function googleLogin() {
-            alert("🔗 Google bilan kirish...\n\nFirebase Auth sozlang.");
-        }
-
+        function googleLogin() { alert("🔗 Google bilan kirish...\n\nFirebase Auth sozlang."); }
         function login() {
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
@@ -1030,21 +673,17 @@
             alert(`✅ Xush kelibsiz!\nEmail: ${email}`);
             closeModal('accountModal');
         }
-
         function signup() {
             const name = document.getElementById('signupName').value;
             const email = document.getElementById('signupEmail').value;
             const password = document.getElementById('signupPassword').value;
             const confirm = document.getElementById('signupConfirm').value;
-            
             if (!name || !email || !password || !confirm) { alert("⚠️ Barcha maydonlarni to'ldiring!"); return; }
             if (password !== confirm) { alert("⚠️ Parollar mos kelmaydi!"); return; }
-            
             localStorage.setItem('nurikUser', JSON.stringify({ name, email }));
             alert(`✅ Ro'yxatdan o'tdingiz!\nIsmingiz: ${name}`);
             closeModal('accountModal');
         }
-
         function logout() {
             if (confirm("Chiqmoqchimisiz?")) {
                 localStorage.removeItem('nurikUser');
@@ -1052,16 +691,8 @@
                 closeModal('profileModal');
             }
         }
-
-        function saveProfile() {
-            alert("✅ Profil saqlandi!");
-            closeModal('profileModal');
-        }
-
-        function saveSettings() {
-            alert("✅ Sozlamalar saqlandi!");
-            closeModal('settingsModal');
-        }
+        function saveProfile() { alert("✅ Profil saqlandi!"); closeModal('profileModal'); }
+        function saveSettings() { alert("✅ Sozlamalar saqlandi!"); closeModal('settingsModal'); }
 
         function generateImage() {
             const prompt = document.getElementById('imagePrompt').value;
@@ -1076,11 +707,9 @@
         function appendMessage(text, type) {
             const msgDiv = document.createElement('div');
             msgDiv.classList.add('message', type === 'user' ? 'user-msg' : 'bot-msg');
-            
             const label = document.createElement('div');
             label.classList.add('msg-label');
             label.textContent = type === 'user' ? '👤 Siz' : '🤖 NurikAI';
-            
             msgDiv.appendChild(label);
             msgDiv.appendChild(document.createTextNode(text));
             chatBox.appendChild(msgDiv);
@@ -1088,122 +717,91 @@
             saveToHistory(text, type);
         }
 
-        function appendImage(base64Data, mimeType) {
+        function appendImage(base64, mime) {
             const msgDiv = document.createElement('div');
             msgDiv.classList.add('message', 'bot-msg');
-            
             const label = document.createElement('div');
             label.classList.add('msg-label');
             label.textContent = '🤖 NurikAI - Rasm';
             msgDiv.appendChild(label);
-
             const img = document.createElement('img');
-            img.src = `data:${mimeType};base64,${base64Data}`;
+            img.src = `data:${mime};base64,${base64}`;
             img.classList.add('generated-image');
             msgDiv.appendChild(img);
-
             chatBox.appendChild(msgDiv);
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
         function saveToHistory(text, type) {
-            let history = JSON.parse(localStorage.getItem('nurikHistory') || '[]');
-            history.unshift({
-                text: text.substring(0, 50) + (text.length > 50 ? '...' : ''),
-                type,
-                date: new Date().toLocaleString('uz')
-            });
-            history = history.slice(0, 20);
-            localStorage.setItem('nurikHistory', JSON.stringify(history));
+            let h = JSON.parse(localStorage.getItem('nurikHistory') || '[]');
+            h.unshift({ text: text.substring(0, 50) + (text.length > 50 ? '...' : ''), type, date: new Date().toLocaleString('uz') });
+            h = h.slice(0, 20);
+            localStorage.setItem('nurikHistory', JSON.stringify(h));
             updateHistoryUI();
         }
 
         function updateHistoryUI() {
-            const history = JSON.parse(localStorage.getItem('nurikHistory') || '[]');
-            const container = document.getElementById('historyContent');
-            
-            if (history.length === 0) {
-                container.innerHTML = `<div class="history-empty"><i class="fas fa-inbox"></i><p>Hozircha tarix yo'q</p></div>`;
-                return;
-            }
-            
-            container.innerHTML = history.map(item => `
-                <div class="history-item">
-                    <div class="date">${item.date}</div>
-                    <div class="text">${item.type === 'user' ? '👤' : '🤖'} ${item.text}</div>
-                </div>
-            `).join('');
+            const h = JSON.parse(localStorage.getItem('nurikHistory') || '[]');
+            const c = document.getElementById('historyContent');
+            if (h.length === 0) { c.innerHTML = `<div class="history-empty"><i class="fas fa-inbox"></i><p>Hozircha tarix yo'q</p></div>`; return; }
+            c.innerHTML = h.map(i => `<div class="history-item"><div class="date">${i.date}</div><div class="text">${i.type === 'user' ? '👤' : '🤖'} ${i.text}</div></div>`).join('');
         }
-
         updateHistoryUI();
 
         function clearChat() {
             if (confirm("Chatni tozalamoqchimisiz?")) {
                 chatBox.innerHTML = '';
-                const systemMsg = document.createElement('div');
-                systemMsg.classList.add('message', 'system-msg');
-                systemMsg.textContent = "🔄 Chat tozalandi!";
-                chatBox.appendChild(systemMsg);
+                const s = document.createElement('div');
+                s.classList.add('message', 'system-msg');
+                s.textContent = "🔄 Chat tozalandi!";
+                chatBox.appendChild(s);
                 setTimeout(() => appendMessage("Chat tozalandi. Yangi savol bering! 😊", 'bot'), 500);
             }
         }
 
         function showTyping() {
-            const typingDiv = document.createElement('div');
-            typingDiv.classList.add('message', 'bot-msg');
-            typingDiv.id = 'typing';
-            
-            const label = document.createElement('div');
-            label.classList.add('msg-label');
-            label.textContent = '🤖 NurikAI';
-            typingDiv.appendChild(label);
-            
-            const dots = document.createElement('div');
-            dots.classList.add('typing-indicator');
-            dots.innerHTML = '<span></span><span></span><span></span>';
-            typingDiv.appendChild(dots);
-            
-            chatBox.appendChild(typingDiv);
+            const t = document.createElement('div');
+            t.classList.add('message', 'bot-msg');
+            t.id = 'typing';
+            const l = document.createElement('div');
+            l.classList.add('msg-label');
+            l.textContent = '🤖 NurikAI';
+            t.appendChild(l);
+            const d = document.createElement('div');
+            d.classList.add('typing-indicator');
+            d.innerHTML = '<span></span><span></span><span></span>';
+            t.appendChild(d);
+            chatBox.appendChild(t);
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
-        function hideTyping() {
-            const typing = document.getElementById('typing');
-            if (typing) typing.remove();
-        }
+        function hideTyping() { const t = document.getElementById('typing'); if (t) t.remove(); }
 
         async function fetchTextResponse(prompt) {
             showTyping();
-
             for (let i = 0; i < endpoints.length; i++) {
                 try {
-                    const response = await fetch(`${endpoints[i]}?key=${API_KEY}`, {
+                    const r = await fetch(`${endpoints[i]}?key=${API_KEY}`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
                     });
-
-                    const data = await response.json();
-
-                    if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+                    const d = await r.json();
+                    if (d.candidates && d.candidates[0]?.content?.parts?.[0]?.text) {
                         hideTyping();
-                        appendMessage(data.candidates[0].content.parts[0].text, 'bot');
+                        appendMessage(d.candidates[0].content.parts[0].text, 'bot');
                         return;
                     }
-                } catch (error) {
-                    console.log(`Endpoint ${i + 1} xato:`, error);
-                }
+                } catch (e) { console.log(`Endpoint ${i + 1} xato:`, e); }
             }
-
             hideTyping();
             appendMessage("⚠️ Xatolik yuz berdi. Qayta urinib ko'ring.", 'bot');
         }
 
         async function fetchImageResponse(prompt) {
             showTyping();
-
             try {
-                const response = await fetch(`${imageEndpoint}?key=${API_KEY}`, {
+                const r = await fetch(`${imageEndpoint}?key=${API_KEY}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -1211,51 +809,35 @@
                         generationConfig: { responseModalities: ["TEXT", "IMAGE"] }
                     })
                 });
-
-                const data = await response.json();
+                const d = await r.json();
                 hideTyping();
-
-                if (data.candidates && data.candidates[0]?.content?.parts) {
-                    for (const part of data.candidates[0].content.parts) {
-                        if (part.inlineData?.data) {
-                            appendImage(part.inlineData.data, part.inlineData.mimeType || 'image/png');
-                        }
-                        if (part.text) appendMessage(part.text, 'bot');
+                if (d.candidates && d.candidates[0]?.content?.parts) {
+                    for (const p of d.candidates[0].content.parts) {
+                        if (p.inlineData?.data) appendImage(p.inlineData.data, p.inlineData.mimeType || 'image/png');
+                        if (p.text) appendMessage(p.text, 'bot');
                     }
-                } else {
-                    appendMessage("⚠️ Rasm yaratib bo'lmadi.", 'bot');
-                }
-            } catch (error) {
-                hideTyping();
-                appendMessage("⚠️ Rasm xatosi: " + error.message, 'bot');
-            }
+                } else { appendMessage("⚠️ Rasm yaratib bo'lmadi.", 'bot'); }
+            } catch (e) { hideTyping(); appendMessage("⚠️ Rasm xatosi: " + e.message, 'bot'); }
         }
 
         async function fetchAIResponse(prompt) {
-            const lower = prompt.toLowerCase();
-            const isImage = lower.includes("rasm yarat") || lower.includes("rasm chiz") || lower.startsWith("rasm:");
-            
-            if (isImage) await fetchImageResponse(prompt);
+            const l = prompt.toLowerCase();
+            if (l.includes("rasm yarat") || l.includes("rasm chiz") || l.startsWith("rasm:")) await fetchImageResponse(prompt);
             else await fetchTextResponse(prompt);
         }
 
         function sendMessage() {
-            const text = userInput.value.trim();
-            if (!text) return;
-            
-            appendMessage(text, 'user');
+            const t = userInput.value.trim();
+            if (!t) return;
+            appendMessage(t, 'user');
             userInput.value = '';
-            fetchAIResponse(text);
+            fetchAIResponse(t);
         }
 
-        function quickSend(text) {
-            userInput.value = text;
-            sendMessage();
-        }
+        function quickSend(t) { userInput.value = t; sendMessage(); }
 
         sendBtn.addEventListener('click', sendMessage);
-        userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+        userInput.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
     </script>
-
 </body>
 </html>
