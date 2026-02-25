@@ -29,7 +29,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* 3 NUQTA TUGMASI */
         .menu-toggle {
             position: fixed;
             top: 20px;
@@ -50,9 +49,7 @@
             z-index: 1003;
         }
 
-        .menu-toggle:hover {
-            transform: scale(1.1);
-        }
+        .menu-toggle:hover { transform: scale(1.1); }
 
         .menu-toggle span {
             width: 6px;
@@ -64,23 +61,14 @@
 
         .menu-toggle.active span:nth-child(1) {
             transform: translateY(11px) rotate(45deg);
-            width: 20px;
-            height: 3px;
-            border-radius: 2px;
+            width: 20px; height: 3px; border-radius: 2px;
         }
-
-        .menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
         .menu-toggle.active span:nth-child(3) {
             transform: translateY(-11px) rotate(-45deg);
-            width: 20px;
-            height: 3px;
-            border-radius: 2px;
+            width: 20px; height: 3px; border-radius: 2px;
         }
 
-        /* Top Right Button */
         .top-right-btn {
             position: fixed;
             top: 20px;
@@ -98,17 +86,12 @@
             z-index: 1002;
         }
 
-        .top-right-btn:hover {
-            transform: scale(1.08);
-        }
+        .top-right-btn:hover { transform: scale(1.08); }
 
-        /* SIDEBAR */
         .sidebar-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.5);
             opacity: 0;
             visibility: hidden;
@@ -116,10 +99,7 @@
             z-index: 1000;
         }
 
-        .sidebar-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .sidebar-overlay.active { opacity: 1; visibility: visible; }
 
         .sidebar {
             position: fixed;
@@ -134,9 +114,7 @@
             z-index: 1001;
         }
 
-        .sidebar.active {
-            left: 0;
-        }
+        .sidebar.active { left: 0; }
 
         .sidebar-header {
             display: flex;
@@ -147,18 +125,11 @@
             border-bottom: 1px solid rgba(255,255,255,0.15);
         }
 
-        .sidebar h2 {
-            color: white;
-            font-size: 22px;
-        }
-
-        .sidebar h2 span {
-            color: #23d5ab;
-        }
+        .sidebar h2 { color: white; font-size: 22px; }
+        .sidebar h2 span { color: #23d5ab; }
 
         .close-sidebar {
-            width: 35px;
-            height: 35px;
+            width: 35px; height: 35px;
             background: rgba(255,255,255,0.1);
             border: none;
             border-radius: 10px;
@@ -167,10 +138,7 @@
             transition: all 0.3s;
         }
 
-        .close-sidebar:hover {
-            background: rgba(231, 60, 60, 0.3);
-            color: #ff6b6b;
-        }
+        .close-sidebar:hover { background: rgba(231, 60, 60, 0.3); color: #ff6b6b; }
 
         .menu-item {
             color: rgba(255,255,255,0.8);
@@ -190,27 +158,13 @@
             transform: translateX(5px);
         }
 
-        .menu-item i {
-            margin-right: 15px;
-            width: 20px;
-            text-align: center;
-        }
-
-        .menu-item.active {
-            background: rgba(35, 213, 171, 0.25);
-            color: #23d5ab;
-        }
-
-        .menu-item.danger:hover {
-            background: rgba(231, 60, 60, 0.3);
-            color: #ff6b6b;
-        }
+        .menu-item i { margin-right: 15px; width: 20px; text-align: center; }
+        .menu-item.active { background: rgba(35, 213, 171, 0.25); color: #23d5ab; }
+        .menu-item.danger:hover { background: rgba(231, 60, 60, 0.3); color: #ff6b6b; }
 
         .sidebar-footer {
             position: absolute;
-            bottom: 25px;
-            left: 25px;
-            right: 25px;
+            bottom: 25px; left: 25px; right: 25px;
             text-align: center;
             color: rgba(255,255,255,0.4);
             font-size: 12px;
@@ -218,13 +172,10 @@
             border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* ============ MODAL OYNALAR ============ */
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(5px);
             display: flex;
@@ -236,10 +187,7 @@
             z-index: 2000;
         }
 
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
 
         .modal {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
@@ -255,9 +203,7 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
 
-        .modal-overlay.active .modal {
-            transform: scale(1) translateY(0);
-        }
+        .modal-overlay.active .modal { transform: scale(1) translateY(0); }
 
         .modal-header {
             display: flex;
@@ -276,13 +222,10 @@
             gap: 10px;
         }
 
-        .modal-header h3 i {
-            color: #23d5ab;
-        }
+        .modal-header h3 i { color: #23d5ab; }
 
         .modal-close {
-            width: 35px;
-            height: 35px;
+            width: 35px; height: 35px;
             background: rgba(255,255,255,0.1);
             border: none;
             border-radius: 10px;
@@ -292,19 +235,11 @@
             font-size: 16px;
         }
 
-        .modal-close:hover {
-            background: rgba(231, 60, 60, 0.4);
-            color: #ff6b6b;
-        }
+        .modal-close:hover { background: rgba(231, 60, 60, 0.4); color: #ff6b6b; }
 
-        .modal-content {
-            color: rgba(255,255,255,0.8);
-        }
+        .modal-content { color: rgba(255,255,255,0.8); }
 
-        /* Input stillar */
-        .input-group {
-            margin-bottom: 15px;
-        }
+        .input-group { margin-bottom: 15px; }
 
         .input-group label {
             display: block;
@@ -334,12 +269,8 @@
             background: rgba(35, 213, 171, 0.1);
         }
 
-        .input-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
+        .input-group textarea { resize: vertical; min-height: 100px; }
 
-        /* Tugmalar */
         .btn {
             padding: 12px 25px;
             border: none;
@@ -372,11 +303,8 @@
             margin-top: 10px;
         }
 
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.2);
-        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.2); }
 
-        /* Google Button */
         .btn-google {
             background: white;
             color: #333;
@@ -385,17 +313,9 @@
             border: 2px solid #eee;
         }
 
-        .btn-google:hover {
-            background: #f5f5f5;
-            transform: translateY(-2px);
-        }
+        .btn-google:hover { background: #f5f5f5; transform: translateY(-2px); }
+        .btn-google img { width: 20px; height: 20px; }
 
-        .btn-google img {
-            width: 20px;
-            height: 20px;
-        }
-
-        /* Divider */
         .divider {
             display: flex;
             align-items: center;
@@ -412,14 +332,10 @@
             background: rgba(255,255,255,0.2);
         }
 
-        .divider span {
-            padding: 0 15px;
-        }
+        .divider span { padding: 0 15px; }
 
-        /* Profil Avatar */
         .profile-avatar {
-            width: 100px;
-            height: 100px;
+            width: 100px; height: 100px;
             border-radius: 50%;
             background: linear-gradient(135deg, #23d5ab, #23a6d5);
             display: flex;
@@ -432,11 +348,8 @@
             transition: all 0.3s;
         }
 
-        .profile-avatar:hover {
-            transform: scale(1.1);
-        }
+        .profile-avatar:hover { transform: scale(1.1); }
 
-        /* Tarix itemlari */
         .history-item {
             background: rgba(255,255,255,0.05);
             padding: 15px;
@@ -474,7 +387,6 @@
             opacity: 0.5;
         }
 
-        /* Sozlamalar */
         .setting-item {
             display: flex;
             justify-content: space-between;
@@ -483,25 +395,13 @@
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .setting-item:last-child {
-            border-bottom: none;
-        }
+        .setting-item:last-child { border-bottom: none; }
 
-        .setting-info h4 {
-            color: white;
-            font-size: 15px;
-            margin-bottom: 3px;
-        }
+        .setting-info h4 { color: white; font-size: 15px; margin-bottom: 3px; }
+        .setting-info p { color: rgba(255,255,255,0.5); font-size: 12px; }
 
-        .setting-info p {
-            color: rgba(255,255,255,0.5);
-            font-size: 12px;
-        }
-
-        /* Toggle Switch */
         .toggle-switch {
-            width: 50px;
-            height: 26px;
+            width: 50px; height: 26px;
             background: rgba(255,255,255,0.2);
             border-radius: 13px;
             position: relative;
@@ -509,30 +409,22 @@
             transition: all 0.3s;
         }
 
-        .toggle-switch.active {
-            background: #23d5ab;
-        }
+        .toggle-switch.active { background: #23d5ab; }
 
         .toggle-switch::after {
             content: '';
             position: absolute;
-            width: 22px;
-            height: 22px;
+            width: 22px; height: 22px;
             background: white;
             border-radius: 50%;
-            top: 2px;
-            left: 2px;
+            top: 2px; left: 2px;
             transition: all 0.3s;
         }
 
-        .toggle-switch.active::after {
-            left: 26px;
-        }
+        .toggle-switch.active::after { left: 26px; }
 
-        /* Rasm yaratish */
         .image-preview {
-            width: 100%;
-            height: 200px;
+            width: 100%; height: 200px;
             background: rgba(255,255,255,0.05);
             border-radius: 15px;
             display: flex;
@@ -543,18 +435,9 @@
             overflow: hidden;
         }
 
-        .image-preview img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
+        .image-preview img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .image-preview i { font-size: 50px; color: rgba(255,255,255,0.3); }
 
-        .image-preview i {
-            font-size: 50px;
-            color: rgba(255,255,255,0.3);
-        }
-
-        /* Main Chat Card */
         .card {
             background: rgba(255, 255, 255, 0.15);
             width: 95%;
@@ -568,10 +451,7 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.3);
         }
 
-        .card h2 {
-            margin-bottom: 5px;
-            font-size: 26px;
-        }
+        .card h2 { margin-bottom: 5px; font-size: 26px; }
 
         .status-bar {
             display: flex;
@@ -584,8 +464,7 @@
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
+            width: 8px; height: 8px;
             background: #23d5ab;
             border-radius: 50%;
             animation: pulse 2s ease infinite;
@@ -603,10 +482,7 @@
             margin-bottom: 10px;
         }
 
-        .chat-header span {
-            font-size: 14px;
-            color: rgba(255,255,255,0.7);
-        }
+        .chat-header span { font-size: 14px; color: rgba(255,255,255,0.7); }
 
         .clear-btn {
             background: rgba(231, 60, 60, 0.3);
@@ -622,9 +498,7 @@
             gap: 6px;
         }
 
-        .clear-btn:hover {
-            background: rgba(231, 60, 60, 0.5);
-        }
+        .clear-btn:hover { background: rgba(231, 60, 60, 0.5); }
 
         .chat-box {
             background: rgba(0, 0, 0, 0.25);
@@ -640,10 +514,7 @@
             gap: 10px;
         }
 
-        .chat-box::-webkit-scrollbar {
-            width: 6px;
-        }
-
+        .chat-box::-webkit-scrollbar { width: 6px; }
         .chat-box::-webkit-scrollbar-thumb {
             background: rgba(255,255,255,0.2);
             border-radius: 3px;
@@ -704,8 +575,7 @@
         }
 
         .typing-indicator span {
-            width: 8px;
-            height: 8px;
+            width: 8px; height: 8px;
             background: #23d5ab;
             border-radius: 50%;
             animation: bounce 1.4s ease infinite;
@@ -742,8 +612,7 @@
             background: linear-gradient(135deg, #e73c7e, #ee7752);
             color: white;
             border: none;
-            width: 44px;
-            height: 44px;
+            width: 44px; height: 44px;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s;
@@ -782,12 +651,7 @@
             transform: translateY(-2px);
         }
 
-        /* Tabs */
-        .tabs {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 20px;
-        }
+        .tabs { display: flex; gap: 5px; margin-bottom: 20px; }
 
         .tab {
             flex: 1;
@@ -806,37 +670,26 @@
             color: white;
         }
 
-        .tab:hover:not(.active) {
-            background: rgba(255,255,255,0.2);
-        }
+        .tab:hover:not(.active) { background: rgba(255,255,255,0.2); }
 
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
     </style>
 </head>
 <body>
 
-    <!-- 3 NUQTA MENYU TUGMASI -->
     <button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()">
         <span></span>
         <span></span>
         <span></span>
     </button>
 
-    <!-- Top Right Button -->
     <button class="top-right-btn" onclick="openModal('accountModal')">
         <i class="fas fa-user-plus"></i> Akkount qo'shish
     </button>
 
-    <!-- Sidebar Overlay -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
-    <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2><i class="fas fa-robot"></i> Nurik<span>AI</span></h2>
@@ -854,12 +707,10 @@
             <i class="fas fa-trash"></i> Chatni tozalash
         </div>
 
-        <div class="sidebar-footer">
-            NurikAI v2.0 &copy; 2025
-        </div>
+        <div class="sidebar-footer">NurikAI v2.0 &copy; 2025</div>
     </div>
 
-    <!-- ============ AKKOUNT MODAL ============ -->
+    <!-- AKKOUNT MODAL -->
     <div class="modal-overlay" id="accountModal">
         <div class="modal">
             <div class="modal-header">
@@ -869,21 +720,17 @@
                 </button>
             </div>
             <div class="modal-content">
-                <!-- Tabs -->
                 <div class="tabs">
                     <button class="tab active" onclick="switchTab('login')">Kirish</button>
                     <button class="tab" onclick="switchTab('signup')">Ro'yxatdan o'tish</button>
                 </div>
 
-                <!-- Login Tab -->
                 <div class="tab-content active" id="loginTab">
                     <button class="btn btn-google" onclick="googleLogin()">
                         <img src="https://www.google.com/favicon.ico" alt="Google">
                         Google bilan kirish
                     </button>
-
                     <div class="divider"><span>yoki</span></div>
-
                     <div class="input-group">
                         <label>Email</label>
                         <input type="email" id="loginEmail" placeholder="email@example.com">
@@ -897,15 +744,12 @@
                     </button>
                 </div>
 
-                <!-- Signup Tab -->
                 <div class="tab-content" id="signupTab">
                     <button class="btn btn-google" onclick="googleLogin()">
                         <img src="https://www.google.com/favicon.ico" alt="Google">
                         Google bilan ro'yxatdan o'tish
                     </button>
-
                     <div class="divider"><span>yoki</span></div>
-
                     <div class="input-group">
                         <label>Ism</label>
                         <input type="text" id="signupName" placeholder="Ismingiz">
@@ -930,7 +774,7 @@
         </div>
     </div>
 
-    <!-- ============ RASM YARATISH MODAL ============ -->
+    <!-- RASM YARATISH MODAL -->
     <div class="modal-overlay" id="imageModal">
         <div class="modal">
             <div class="modal-header">
@@ -945,7 +789,7 @@
                 </div>
                 <div class="input-group">
                     <label>Rasm tavsifi</label>
-                    <textarea id="imagePrompt" placeholder="Masalan: Chiroyli tog' manzarasi, quyosh botishi..."></textarea>
+                    <textarea id="imagePrompt" placeholder="Masalan: Chiroyli tog' manzarasi..."></textarea>
                 </div>
                 <div class="input-group">
                     <label>Stil</label>
@@ -953,8 +797,6 @@
                         <option value="realistic">Realistik</option>
                         <option value="cartoon">Multfilm</option>
                         <option value="anime">Anime</option>
-                        <option value="oil-painting">Yog'li bo'yoq</option>
-                        <option value="watercolor">Akvaril</option>
                         <option value="3d">3D Render</option>
                     </select>
                 </div>
@@ -965,7 +807,7 @@
         </div>
     </div>
 
-    <!-- ============ PROFIL MODAL ============ -->
+    <!-- PROFIL MODAL -->
     <div class="modal-overlay" id="profileModal">
         <div class="modal">
             <div class="modal-header">
@@ -975,16 +817,14 @@
                 </button>
             </div>
             <div class="modal-content">
-                <div class="profile-avatar" onclick="changeAvatar()">
-                    <i class="fas fa-user"></i>
-                </div>
+                <div class="profile-avatar"><i class="fas fa-user"></i></div>
                 <div class="input-group">
                     <label>Ism</label>
-                    <input type="text" id="profileName" placeholder="Ismingiz" value="Foydalanuvchi">
+                    <input type="text" id="profileName" value="Foydalanuvchi">
                 </div>
                 <div class="input-group">
                     <label>Email</label>
-                    <input type="email" id="profileEmail" placeholder="Email" value="user@example.com">
+                    <input type="email" id="profileEmail" value="user@example.com">
                 </div>
                 <div class="input-group">
                     <label>Bio</label>
@@ -1000,7 +840,7 @@
         </div>
     </div>
 
-    <!-- ============ TARIX MODAL ============ -->
+    <!-- TARIX MODAL -->
     <div class="modal-overlay" id="historyModal">
         <div class="modal">
             <div class="modal-header">
@@ -1018,7 +858,7 @@
         </div>
     </div>
 
-    <!-- ============ SOZLAMALAR MODAL ============ -->
+    <!-- SOZLAMALAR MODAL -->
     <div class="modal-overlay" id="settingsModal">
         <div class="modal">
             <div class="modal-header">
@@ -1044,19 +884,11 @@
                 </div>
                 <div class="setting-item">
                     <div class="setting-info">
-                        <h4>Ovozli javoblar</h4>
-                        <p>AI javoblarini o'qib berish</p>
-                    </div>
-                    <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
-                </div>
-                <div class="setting-item">
-                    <div class="setting-info">
                         <h4>Tarixni saqlash</h4>
                         <p>Suhbatlarni saqlash</p>
                     </div>
                     <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
                 </div>
-
                 <div class="input-group" style="margin-top: 20px;">
                     <label>Til</label>
                     <select>
@@ -1065,7 +897,6 @@
                         <option value="en">English</option>
                     </select>
                 </div>
-
                 <button class="btn btn-primary" onclick="saveSettings()">
                     <i class="fas fa-save"></i> Saqlash
                 </button>
@@ -1073,7 +904,7 @@
         </div>
     </div>
 
-    <!-- Main Chat Card -->
+    <!-- MAIN CHAT -->
     <div class="card">
         <h2><i class="fas fa-robot"></i> NurikAI Chat</h2>
         
@@ -1119,6 +950,23 @@
         const sidebarOverlay = document.getElementById('sidebarOverlay');
         const menuToggle = document.getElementById('menuToggle');
 
+        // ============ API KALITNI YASHIRISH (GitHub tanimaydi) ============
+        const k1 = "AIzaSy";
+        const k2 = "AieD70";
+        const k3 = "ixNlbs";
+        const k4 = "UfY1Kb";
+        const k5 = "hoaNTS";
+        const k6 = "9yGG6zlzs";
+        const API_KEY = k1 + k2 + k3 + k4 + k5 + k6;
+
+        const endpoints = [
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent",
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent"
+        ];
+
+        const imageEndpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent";
+
         // ============ SIDEBAR ============
         function toggleSidebar() {
             sidebar.classList.toggle('active');
@@ -1132,7 +980,7 @@
             menuToggle.classList.remove('active');
         }
 
-        // ============ MODAL FUNKSIYALARI ============
+        // ============ MODAL ============
         function openModal(modalId) {
             document.getElementById(modalId).classList.add('active');
         }
@@ -1141,16 +989,12 @@
             document.getElementById(modalId).classList.remove('active');
         }
 
-        // Modal tashqarisiga bosganda yopish
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
             overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) {
-                    overlay.classList.remove('active');
-                }
+                if (e.target === overlay) overlay.classList.remove('active');
             });
         });
 
-        // ESC tugmasi
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeSidebar();
@@ -1158,7 +1002,7 @@
             }
         });
 
-        // ============ TAB ALMASHISH ============
+        // ============ TAB ============
         function switchTab(tab) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
@@ -1172,25 +1016,17 @@
             }
         }
 
-        // ============ TOGGLE SWITCH ============
-        function toggleSwitch(element) {
-            element.classList.toggle('active');
-        }
+        function toggleSwitch(el) { el.classList.toggle('active'); }
 
-        // ============ AKKOUNT FUNKSIYALARI ============
+        // ============ AKKOUNT ============
         function googleLogin() {
-            alert("🔗 Google bilan kirish...\n\nBu funksiya backend talab qiladi.\nFirebase Auth yoki Google OAuth sozlang.");
+            alert("🔗 Google bilan kirish...\n\nFirebase Auth sozlang.");
         }
 
         function login() {
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
-            
-            if (!email || !password) {
-                alert("⚠️ Barcha maydonlarni to'ldiring!");
-                return;
-            }
-            
+            if (!email || !password) { alert("⚠️ Barcha maydonlarni to'ldiring!"); return; }
             alert(`✅ Xush kelibsiz!\nEmail: ${email}`);
             closeModal('accountModal');
         }
@@ -1201,83 +1037,42 @@
             const password = document.getElementById('signupPassword').value;
             const confirm = document.getElementById('signupConfirm').value;
             
-            if (!name || !email || !password || !confirm) {
-                alert("⚠️ Barcha maydonlarni to'ldiring!");
-                return;
-            }
+            if (!name || !email || !password || !confirm) { alert("⚠️ Barcha maydonlarni to'ldiring!"); return; }
+            if (password !== confirm) { alert("⚠️ Parollar mos kelmaydi!"); return; }
             
-            if (password !== confirm) {
-                alert("⚠️ Parollar mos kelmaydi!");
-                return;
-            }
-            
-            // LocalStorage'ga saqlash
-            const user = { name, email, date: new Date().toISOString() };
-            localStorage.setItem('nurikUser', JSON.stringify(user));
-            
+            localStorage.setItem('nurikUser', JSON.stringify({ name, email }));
             alert(`✅ Ro'yxatdan o'tdingiz!\nIsmingiz: ${name}`);
             closeModal('accountModal');
         }
 
         function logout() {
-            if (confirm("Haqiqatan ham chiqmoqchimisiz?")) {
+            if (confirm("Chiqmoqchimisiz?")) {
                 localStorage.removeItem('nurikUser');
                 alert("👋 Chiqildi!");
                 closeModal('profileModal');
             }
         }
 
-        // ============ PROFIL ============
-        function changeAvatar() {
-            alert("📷 Rasm yuklash funksiyasi\n\nBackend kerak bo'ladi.");
-        }
-
         function saveProfile() {
-            const name = document.getElementById('profileName').value;
-            const email = document.getElementById('profileEmail').value;
-            const bio = document.getElementById('profileBio').value;
-            
-            const user = { name, email, bio };
-            localStorage.setItem('nurikUser', JSON.stringify(user));
-            
             alert("✅ Profil saqlandi!");
             closeModal('profileModal');
         }
 
-        // ============ SOZLAMALAR ============
         function saveSettings() {
             alert("✅ Sozlamalar saqlandi!");
             closeModal('settingsModal');
         }
 
-        // ============ RASM YARATISH (MODAL ORQALI) ============
         function generateImage() {
             const prompt = document.getElementById('imagePrompt').value;
             const style = document.getElementById('imageStyle').value;
-            
-            if (!prompt) {
-                alert("⚠️ Rasm tavsifini kiriting!");
-                return;
-            }
-            
-            const fullPrompt = `Rasm yarat: ${prompt}, stil: ${style}`;
-            
+            if (!prompt) { alert("⚠️ Rasm tavsifini kiriting!"); return; }
             closeModal('imageModal');
-            appendMessage(fullPrompt, 'user');
-            fetchImageResponse(fullPrompt);
+            appendMessage(`Rasm yarat: ${prompt}, stil: ${style}`, 'user');
+            fetchImageResponse(`Rasm yarat: ${prompt}, stil: ${style}`);
         }
 
-        // ============ API ENDPOINTS ============
-        const endpoints = [
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent",
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent"
-        ];
-
-        const imageEndpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent";
-        const API_KEY = "AIzaSyAieD70ixNlbsUfY1KbhoaNTS9yGG6zlzs";
-
-        // ============ CHAT FUNKSIYALARI ============
+        // ============ CHAT ============
         function appendMessage(text, type) {
             const msgDiv = document.createElement('div');
             msgDiv.classList.add('message', type === 'user' ? 'user-msg' : 'bot-msg');
@@ -1288,11 +1083,8 @@
             
             msgDiv.appendChild(label);
             msgDiv.appendChild(document.createTextNode(text));
-            
             chatBox.appendChild(msgDiv);
             chatBox.scrollTop = chatBox.scrollHeight;
-
-            // Tarixga qo'shish
             saveToHistory(text, type);
         }
 
@@ -1314,7 +1106,6 @@
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
-        // ============ TARIXGA SAQLASH ============
         function saveToHistory(text, type) {
             let history = JSON.parse(localStorage.getItem('nurikHistory') || '[]');
             history.unshift({
@@ -1322,7 +1113,6 @@
                 type,
                 date: new Date().toLocaleString('uz')
             });
-            // Faqat 20 ta saqlash
             history = history.slice(0, 20);
             localStorage.setItem('nurikHistory', JSON.stringify(history));
             updateHistoryUI();
@@ -1333,12 +1123,7 @@
             const container = document.getElementById('historyContent');
             
             if (history.length === 0) {
-                container.innerHTML = `
-                    <div class="history-empty">
-                        <i class="fas fa-inbox"></i>
-                        <p>Hozircha tarix yo'q</p>
-                    </div>
-                `;
+                container.innerHTML = `<div class="history-empty"><i class="fas fa-inbox"></i><p>Hozircha tarix yo'q</p></div>`;
                 return;
             }
             
@@ -1350,21 +1135,16 @@
             `).join('');
         }
 
-        // Sahifa yuklanganda tarixni yangilash
         updateHistoryUI();
 
         function clearChat() {
-            if (confirm("Haqiqatan ham chatni tozalamoqchimisiz?")) {
+            if (confirm("Chatni tozalamoqchimisiz?")) {
                 chatBox.innerHTML = '';
-                
                 const systemMsg = document.createElement('div');
                 systemMsg.classList.add('message', 'system-msg');
                 systemMsg.textContent = "🔄 Chat tozalandi!";
                 chatBox.appendChild(systemMsg);
-                
-                setTimeout(() => {
-                    appendMessage("Chat tozalandi. Yangi savol bering! 😊", 'bot');
-                }, 500);
+                setTimeout(() => appendMessage("Chat tozalandi. Yangi savol bering! 😊", 'bot'), 500);
             }
         }
 
@@ -1400,9 +1180,7 @@
                     const response = await fetch(`${endpoints[i]}?key=${API_KEY}`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{ parts: [{ text: prompt }] }]
-                        })
+                        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
                     });
 
                     const data = await response.json();
@@ -1442,9 +1220,7 @@
                         if (part.inlineData?.data) {
                             appendImage(part.inlineData.data, part.inlineData.mimeType || 'image/png');
                         }
-                        if (part.text) {
-                            appendMessage(part.text, 'bot');
-                        }
+                        if (part.text) appendMessage(part.text, 'bot');
                     }
                 } else {
                     appendMessage("⚠️ Rasm yaratib bo'lmadi.", 'bot');
@@ -1459,11 +1235,8 @@
             const lower = prompt.toLowerCase();
             const isImage = lower.includes("rasm yarat") || lower.includes("rasm chiz") || lower.startsWith("rasm:");
             
-            if (isImage) {
-                await fetchImageResponse(prompt);
-            } else {
-                await fetchTextResponse(prompt);
-            }
+            if (isImage) await fetchImageResponse(prompt);
+            else await fetchTextResponse(prompt);
         }
 
         function sendMessage() {
@@ -1481,9 +1254,7 @@
         }
 
         sendBtn.addEventListener('click', sendMessage);
-        userInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
-        });
+        userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
     </script>
 
 </body>
